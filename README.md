@@ -16,10 +16,16 @@ Télémetrie “statut” : position, orientation, cycles de prod, carburant, in
 
 Intégration de relais (états de coffres, etc.)
 
+---
+
 ## 🔌 Prérequis
 CC:Tweaked ≥ 1.94  
+
 Un modem activé : rednet.open("<side>")  
+
 Un ID unique par machine (serveur, turtle, relais)  
+
+---
 
 ## 🧱 Format de base des trames
 Deux familles :
@@ -37,6 +43,8 @@ ServerID : ID du serveur cible (dans les réponses serveur)
 ProgramVersion : version du programme émetteur
 
 Timestamps si besoin : os.epoch("utc")
+
+---
 
 ## 🧭 Tableau des IDs (référence)
 ### Demandes (1–100)  
@@ -63,6 +71,8 @@ Timestamps si besoin : os.epoch("utc")
 
 > [!NOTE]
 > Compat héritage : certains anciens scripts utilisaient 202 pour “interdiction”. Préférez désormais 103.
+
+---
 
 ## 📦 Contenus de trames (champs attendus)
 ### 110 — Statut turtle → serveur
@@ -106,6 +116,8 @@ Timestamps si besoin : os.epoch("utc")
 { AnswerID = 103, reason = "coffre plein" }
 ```
 
+---
+
 ## 🔁 Flots typiques
 **Turtle (client)**  
 Envoi {RequestID=1} → reçoit {AnswerID=101}
@@ -130,6 +142,8 @@ Périodiquement ou sur demande {RequestID=30} : envoi {AnswerID=130, niveaux de 
 Répond aux demandes (1/2/30)  
 
 Décide l’autorisation (102/103) et l’affiche (IHM/monitor)  
+
+---
 
 ## 🧪 Exemples (extraits)
 **Turtle — connexion + heartbeat**  
@@ -205,6 +219,8 @@ while true do
 end
 ```  
 
+---
+
 ## ✅ Bonnes pratiques
 Toujours répondre aux demandes (1/2/30), même par un refus (103).
 
@@ -216,6 +232,8 @@ Journaliser côté serveur (horodatage, SourceID, Request/AnswerID) pour facilit
 
 Versionner vos programmes (ProgramVersion) et vos configs d’ID.
 
+---
+
 ## 🧩 Compatibilité & évolutions
 CraftNET reste supporté pour vos installations existantes.
 
@@ -224,3 +242,12 @@ CraftNET reste supporté pour vos installations existantes.
 
 > [!TIP]
 > Une passerelle CraftNET ↔ PixelLink est possible (traduction des trames).
+
+---
+
+## 🙌 Contributions & Questions
+Les contributions sont les bienvenues !
+
+Ouvrez une issue pour signaler un problème ou suggérer des améliorations.
+
+Proposez une Pull Request pour contribuer au code ou à la documentation.
