@@ -64,6 +64,7 @@ Timestamps si besoin : os.epoch("utc")
 
 ## 📦 Contenus de trames (champs attendus)
 ### 110 — Statut turtle → serveur
+```
 {  
   AnswerID = 110,  
   ProgramVersion = "x.y",  
@@ -75,24 +76,33 @@ Timestamps si besoin : os.epoch("utc")
   HayHarvestedCurrentRun  = <int>,       -- moissonneuse  
   -- etc.  
 }
+```
 
 ### 130 — Statut relais → serveur
+```
 {
   AnswerID = 130,  
   CurrentLeftChestFilling  = <0..100>,   -- % remplissage coffre gauche  
   CurrentRightChestFilling = <0..100>,   -- % remplissage coffre droit  
   -- Extensions possibles : types de coffres, alertes locales, etc.  
-}  
+}
+```
 
 ### 101 / 102 / 103 — Réponses serveur  
 -- 101 : connexion OK  
-{ AnswerID = 101, ServerID = <id> }  
+```
+{ AnswerID = 101, ServerID = <id> }
+```
 
 -- 102 : autorisation accordée  
-{ AnswerID = 102, reason = "..." }  
+```
+{ AnswerID = 102, reason = "..." }
+```
 
 -- 103 : autorisation refusée / révoquée  
-{ AnswerID = 103, reason = "coffre plein" }  
+```
+{ AnswerID = 103, reason = "coffre plein" }
+```
 
 ## 🔁 Flots typiques
 **Turtle (client)**  
@@ -121,6 +131,7 @@ Décide l’autorisation (102/103) et l’affiche (IHM/monitor)
 
 ## 🧪 Exemples (extraits)
 **Turtle — connexion + heartbeat**  
+```
 rednet.open("right")  
 local SERVER_ID = 11  
 
@@ -152,10 +163,12 @@ while true do
 
   sleep(3 + math.random())  -- Jitter  
 end   
+```
 
 ---
 
 **Serveur — squelette minimal**  
+```
 rednet.open("back")  
 local TURTLE_ID = 16  
 local RELAY_ID  = 17  
@@ -187,7 +200,8 @@ while true do
       -- Si le relais “push”, MAJ états coffres  
     end  
   end  
-end  
+end
+```  
 
 ## ✅ Bonnes pratiques
 Toujours répondre aux demandes (1/2/30), même par un refus (103).
