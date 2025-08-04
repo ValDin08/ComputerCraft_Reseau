@@ -1,9 +1,11 @@
+<img width="1583" height="1600" alt="wmremove-transformed" src="https://github.com/user-attachments/assets/15fb3263-fea1-4d57-9985-51e83292754e" />
+
 # CraftNET — Protocole réseau (legacy) pour CC:Tweaked
 CraftNET est un protocole simple basé sur RedNet (modem CC:Tweaked) permettant de faire communiquer turtles, relais et serveurs.
 Il s’appuie sur des identifiants numériques de requêtes/réponses et des trames (tables Lua) contenant les données utiles.
 
 > [!NOTE]
-> Statut : en évolution. Pour de nouveaux projets ou des besoins avancés, voir le protocole PixelLink (messages typés, payloads structurés, supervision multi-sites).
+> Statut : supporté mais non développé. Pour de nouveaux projets ou des besoins avancés, voir le protocole PixelLink (messages typés, payloads structurés, supervision multi-sites).
 
 ## 🎯 Objectifs
 Connexion turtle/serveur et maintien de session
