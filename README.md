@@ -1,13 +1,13 @@
 <img width="1108" height="386" alt="image" src="https://github.com/user-attachments/assets/a6ee35af-42a3-48e8-b43b-096884e06a47" />
 
-### 🌐 PixelLink
+## 🌐 PixelLink
 PixelLink est un protocole réseau avancé pour ComputerCraft (CC:Tweaked), conçu pour connecter efficacement turtles, relais, serveurs et superviseurs dans vos environnements Minecraft.
 
 Avec PixelLink, reliez vos machines, simplifiez votre univers.
 
 ---
 
-### ✨ Fonctionnalités clés
+## ✨ Fonctionnalités clés
 ✅ Structure claire : messages typés, lisibles, et évolutifs.
 
 🔄 Communication robuste : états réguliers, autorisations fiables.
@@ -18,7 +18,7 @@ Avec PixelLink, reliez vos machines, simplifiez votre univers.
 
 ---
 
-### 🔌 Prérequis
+## 🔌 Prérequis
 ComputerCraft (CC:Tweaked) ≥ 1.94
 
 Modem activé (rednet.open("side"))
@@ -27,7 +27,7 @@ GPS activé (optionnel mais recommandé)
 
 ---
 
-### ⚙️ Installation rapide
+## ⚙️ Installation rapide
 1. Placez PixelLink.lua sur chaque turtle/relais/serveur.
 
 2. Chargez PixelLink dans vos scripts :
@@ -40,7 +40,7 @@ pixellink.serverID = 12   -- ID serveur principal
 
 ---
 
-###📝 Exemple de message PixelLink
+##📝 Exemple de message PixelLink
 PixelLink utilise des messages typés pour une lisibilité maximale :
 ```
 {
@@ -52,7 +52,7 @@ PixelLink utilise des messages typés pour une lisibilité maximale :
   payload = { ... } -- contenu structuré
 }
 ```
-## Exemple d’état Turtle :
+### Exemple d’état Turtle :
 ```
 {
   msgType = "status",
@@ -73,8 +73,8 @@ PixelLink utilise des messages typés pour une lisibilité maximale :
 ```
 ---
 
-### 🚀 Exemples rapides
-## Côté Turtle
+## 🚀 Exemples rapides
+### Côté Turtle
 ```
 local pixellink = require("PixelLink")
 pixellink.role = "turtle"; pixellink.serverID = 12
@@ -99,7 +99,7 @@ while true do
 end
 ```
 
-## Côté Serveur
+### Côté Serveur
 ```
 local pixellink = require("PixelLink")
 pixellink.role = "server"
@@ -118,12 +118,12 @@ end
 
 ---
 
-### 🔄 Migration depuis CraftNET (facultatif)
+## 🔄 Migration depuis CraftNET (facultatif)
 Une passerelle CraftNET ↔ PixelLink est disponible dans bridge_craftnet.lua.
 
 ---
 
-### ✅ Bonnes pratiques PixelLink
+## ✅ Bonnes pratiques PixelLink
 Heartbeat régulier avec jitter (sleep(3 + math.random()))
 
 Timeout sécurité côté turtle/relais sans autorisation récente
@@ -134,7 +134,7 @@ Versionnement clair du protocole et programmes
 
 ---
 
-### 🙌 Contributions & Questions
+## 🙌 Contributions & Questions
 Les contributions sont les bienvenues !
 
 Ouvrez une issue pour signaler un problème ou suggérer des améliorations.
