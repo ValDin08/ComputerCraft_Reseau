@@ -10,9 +10,9 @@ Ce serveur gère la supervision, l’autorisation et la gestion des turtles et r
 ## Version actuelle : 1.0
 
 ### 📝 Patchnote
-**1.0 : Première version fonctionnelle  
-Communication PixelLink/CraftNET  
-IHM locale et gestion de base des autorisations**
+**1.0 : Version de base du serveur de la turtle bucheron.  
+Gestion de l'autorisation de fonctionnement de la turtle, si celle ci perd la communication avec le serveur, elle arrête de fonctionner.  
+Reception d'une trame basique de statut de la turtle.
 
 ---
 
