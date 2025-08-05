@@ -18,12 +18,20 @@ Avec PixelLink, reliez vos machines, simplifiez votre univers.
 
 ---
 
+## Version actuelle : 1.0
+
+### 📝 Patchnote :
+**1.0 : Version de base de PixelLink.**
+
+---
+
 ## 🔌 Prérequis
-ComputerCraft (CC:Tweaked) ≥ 1.94
 
-Modem activé (rednet.open("side"))
+ComputerCraft (CC:Tweaked) ≥ 1.94.
 
-GPS activé (optionnel mais recommandé)
+Modem présent.
+
+Satellite GPS présent et actif sur la carte.
 
 ---
 
