@@ -28,7 +28,7 @@ Reception d'une trame basique de statut de la turtle.
 
 ## 🚀 Installation du serveur
 
-1. **Placez le programme** `serveur_bucheron.lua` sur un ordinateur ComputerCraft (PC ou serveur dédié).
+1. **Placez le programme** `serveurBucheron.lua` sur un ordinateur ComputerCraft (PC ou serveur dédié).
 2. **Ajoutez un modem** sur l’ordinateur, du côté de votre choix (`back`, `right`, etc).
 3. **Connectez un écran monitor** sur un côté de l’ordinateur pour la supervision locale.
 4. (Optionnel) **Assurez-vous que les turtles/relais sont configurés avec le même protocole PixelLink et la même ID serveur.**
@@ -36,7 +36,7 @@ Reception d'une trame basique de statut de la turtle.
 **Démarrage rapide :**
 ```lua
 -- startup.lua
-shell.run("serveur_[metier]")
+shell.run("serveurBucheron")
 ```
 
 ## 📡Configuration
