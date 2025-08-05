@@ -69,6 +69,9 @@ Nombre de cycles de production
 > [!IMPORTANT]
 > Dépendant à CraftNET version à jour sur toutes les turtles et relais connectés.
 
+> [!IMPORTANT]
+> Les Turtles connectées doivent au moins être en version **3.0**.
+
 > [!NOTE]
 > La fiabilité du réseau dépend du placement correct des modems et de la puissance RedNet dans le monde.
 
