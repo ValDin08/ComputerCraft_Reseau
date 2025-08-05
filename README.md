@@ -1,4 +1,6 @@
-<img width="1583" height="1600" alt="wmremove-transformed" src="https://github.com/user-attachments/assets/15fb3263-fea1-4d57-9985-51e83292754e" />
+<p align="center">
+<img width="1583" height="1600" alt="wmremove-transformed" src="https://github.com/user-attachments/assets/a657e464-24ba-45ee-98cc-e95a186fb621" />
+</p>
 
 # CraftNET — Protocole réseau (legacy) pour CC:Tweaked
 CraftNET est un protocole simple basé sur RedNet (modem CC:Tweaked) permettant de faire communiquer turtles, relais et serveurs.
