@@ -5,7 +5,7 @@
 # 🌐 Serveur Bucheron — CC:Tweaked
 
 Bienvenue dans le serveur **Bucheron** pour ComputerCraft !  
-Ce serveur gère la supervision, l’autorisation et la gestion des turtles et relais associés à la production de [bois/blé/minerais…].
+Ce serveur gère la supervision, l’autorisation et la gestion des turtles et relais associés à la production de bois.
 
 ## Version actuelle : 3.0
 
