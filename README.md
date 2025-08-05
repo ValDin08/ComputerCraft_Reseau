@@ -7,14 +7,17 @@
 Bienvenue dans le serveur **Bucheron** pour ComputerCraft !  
 Ce serveur gère la supervision, l’autorisation et la gestion des turtles et relais associés à la production de [bois/blé/minerais…].
 
-## Version actuelle : 2.0
+## Version actuelle : 3.0
 
 ### 📝 Patchnote
 *1.0 : Version de base du serveur de la turtle bucheron.  
 Gestion de l'autorisation de fonctionnement de la turtle, si celle ci perd la communication avec le serveur, elle arrête de fonctionner.  
 Reception d'une trame basique de statut de la turtle.*
 
-**2.0 : Intégration d'un PC relais coffre conditionnant l'autorisation de travail de la turtle.**
+*2.0 : Intégration d'un PC relais coffre conditionnant l'autorisation de travail de la turtle.*
+
+**3.0 : Ajout d'un écran IHM pour supervision de la turtle.  
+Gestion de l'autorisation de production via serveur relais coffre ET signal redstone TOR devant IHM.**
 
 ---
 
