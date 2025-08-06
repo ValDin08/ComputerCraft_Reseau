@@ -22,10 +22,7 @@
     -- Relais
     payload = {
       relayType  = *Fonction du relais*,
-      chest1Inventory = *Quantité de matériel contenue dans le coffre 1*,
-      chest2Inventory = *Quantité de matériel contenue dans le coffre 2*,
-      chest3Inventory = *Quantité de matériel contenue dans le coffre 3*,
-      chest4Inventory = *Quantité de matériel contenue dans le coffre 4*
+      chestInventory = *Quantité de matériel contenue dans le coffre 1 (pourcentage de remplissage)*,
     }
 
 
