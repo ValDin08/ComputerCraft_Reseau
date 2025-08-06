@@ -7,17 +7,26 @@
 Bienvenue dans le serveur **Bucheron** pour ComputerCraft !  
 Ce serveur gère la supervision, l’autorisation et la gestion des turtles et relais associés à la production de bois.
 
-## Version actuelle : 3.0
+## Version actuelle : 4.0-alpha02
 
 ### 📝 Patchnote
+<details>
+  
+<summary>Voir l'historique des versions précédentes</summary>
+  
 *1.0 : Version de base du serveur de la turtle bucheron.  
 Gestion de l'autorisation de fonctionnement de la turtle, si celle ci perd la communication avec le serveur, elle arrête de fonctionner.  
 Reception d'une trame basique de statut de la turtle.*
 
 *2.0 : Intégration d'un PC relais coffre conditionnant l'autorisation de travail de la turtle.*
 
-**3.0 : Ajout d'un écran IHM pour supervision de la turtle.  
-Gestion de l'autorisation de production via serveur relais coffre ET signal redstone TOR devant IHM.**
+*3.0 : Ajout d'un écran IHM pour supervision de la turtle.  
+Gestion de l'autorisation de production via serveur relais coffre ET signal redstone TOR devant IHM.*
+
+</details>
+
+**v4.0-alpha02 : Intégration de PixelLink.  
+Modification du programme en conséquence.**
 
 ---
 
@@ -39,9 +48,10 @@ Gestion de l'autorisation de production via serveur relais coffre ET signal reds
 4. (Optionnel) **Assurez-vous que les turtles/relais sont configurés avec le même protocole PixelLink et la même ID serveur.**
 
 **Démarrage rapide :**
-```lua
+```
 -- startup.lua
-shell.run("serveurBucheron")
+local Bucheron = "ServeurBucheron"
+shell.run(Bucheron)
 ```
 
 ## 📡Configuration
@@ -50,9 +60,9 @@ Dans le script, configurez :
 
 ServerID : l’ID de votre serveur (par défaut : celui du computer)
 
-TurtleIDs : liste des IDs turtles acceptées (ou à découvrir dynamiquement)
+TurtleIDs : liste des IDs turtles acceptées
 
-RelaisIDs : liste des relais associés (optionnel)
+RelaisIDs : liste des relais associés
 
 ModemSide : côté du modem (back, right, etc)
 
@@ -72,10 +82,11 @@ Dernières alertes ou défauts
 Nombre de cycles de production
 
 > [!IMPORTANT]
-> Dépendant à CraftNET version à jour sur toutes les turtles et relais connectés.
+> Dépendant de PixelLink version à jour sur toutes les turtles et relais connectés.
+> Le module PixelLink est [disponible sur GitHub](https://github.com/ValDin08/ComputerCraft_Reseau/tree/main/PixelLink)
 
 > [!IMPORTANT]
-> Les Turtles connectées doivent au moins être en version **3.0**.
+> Les Turtles connectées doivent au moins être en version **4.0**.
 
 > [!IMPORTANT]
 > Un relais doit être intégré au réseau.
@@ -94,7 +105,7 @@ Aucun affichage sur l’écran ?
 → Vérifiez la variable ScreenSide dans la config, testez avec /peripherals dans l’invite de commande.
 
 Le serveur n’autorise pas le travail
-→ Vérifiez l’état des coffres, du redstone, et la configuration des relais.
+→ Vérifiez l’état des coffres, du signal redstone, et la configuration des relais.
 
 ## 🤝 Contributions
 Toute contribution, idée ou correction est la bienvenue !
