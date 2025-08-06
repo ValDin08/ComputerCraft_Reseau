@@ -1,4 +1,4 @@
-local pixelLink = {}
+local PixelLink = {}
 
 local lastMessageID = 0
 
@@ -11,7 +11,7 @@ local lastMessageID = 0
 
     -- Fonctions d'envoi de message
         -- Envoi simple (fire and forget)
-            function pixelLink.send(msgType, srcType, dstID, payload)
+            function PixelLink.send(msgType, srcType, dstID, payload)
                 local message = {
                     msgID = nextMessageID(),
                     msgType = msgType,
@@ -31,7 +31,7 @@ local lastMessageID = 0
             end
 
         -- Envoi avec attente de réponse
-            function pixelLink.request(msgType, srcType, dstID, payload, timeout)
+            function PixelLink.request(msgType, srcType, dstID, payload, timeout)
                 local message = {
                     msgID = nextMessageID(),
                     msgType = msgType,
@@ -75,20 +75,26 @@ local lastMessageID = 0
 
 
     -- Fonctions de réception des messages
-        function pixelLink.receive(srcType)
-            local id, receivedMessage = rednet.receive() -- Attend un message
+        function PixelLink.receive(srcType, timeout)
+            -- Attend une réponse pendant un temps (par défaut 30 secondes)
+            local t = timeout or 30
+            local id, receivedMessage = rednet.receive(t) -- Attend un message
             if type(receivedMessage) == "table" then -- Vérification si le message reçu est bien sous la forme d'une table
                 if receivedMessage.msgType == "connect" then -- Demande de connexion
+                    server.updateHMI(receivedMessage) -- Mise à jour de l'IHM et des données serveur
                     payload = {}
-                    pixelLink.send("connect", srcType, id, payload) -- Envoi de la réponse de connexion
+                    PixelLink.send("connect", srcType, id, payload) -- Envoi de la réponse de connexion
+                    return true, id
 
                 elseif receivedMessage.msgType == "auth" then -- Demande d'autorisation de travail
                     local authorization = server.authorization()
-                    payload = {authorization}
-                    pixelLink.send("auth", srcType, id, payload) -- Envoi de la réponse d'autorisation de travail
+                    payload = {authorization = authorization}
+                    PixelLink.send("auth", srcType, id, payload) -- Envoi de la réponse d'autorisation de travail
+                    return true, id
 
                 elseif receivedMessage.msgType == "status" then -- Reception de statut
                     server.updateHMI(receivedMessage) -- Mise à jour de l'IHM et des données serveur
+                    return true, id
 
                 else
                     return false
@@ -99,4 +105,4 @@ local lastMessageID = 0
 
         end
 
-return pixelLink
+return PixelLink
