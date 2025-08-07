@@ -3,7 +3,7 @@
 </p>
 
 # Réseau des machines – CraftNET/PixelLink (ComputerCraft)
-Bibliothèque et scripts réseau universels pour turtles, relais et serveurs sous ComputerCraft.
+Bibliothèque et scripts réseau universels pour turtles, relais et serveurs sous ComputerCraft.  
 Objectif : unifier la communication, la supervision et le pilotage (autorisation de production, alertes, inventaires, positions, etc.) dans une architecture modulable et extensible.
 
 ## ✨ Fonctionnalités
@@ -11,10 +11,18 @@ CraftNET : protocole historique (héritage), simple, basé sur des RequestID/Ans
 
 PixelLink : protocole moderne, structuré, extensible (messages typés, payloads, rôles, supervision multi-sites).
 
+## ⚙️ Etat composants réseau
+
+![GitHub](https://img.shields.io/badge/PixelLink-Beta_v1.0--b02-yellow)
+![GitHub](https://img.shields.io/badge/CraftNET-Legacy_v1.0-lightblue)
+![GitHub](https://img.shields.io/badge/Serveur_Bucheron-Alpha_v4.0--a03-orange)
+![GitHub](https://img.shields.io/badge/Serveur_Fermier-Stable_v1.0-green)
+![GitHub](https://img.shields.io/badge/Relais-Alpha_v2.0--a01-orange)
+
+
 > [!TIP]
-> Recommandation :  
 > Nouveaux déploiements → PixelLink.  
-> Systèmes existants → rester en CraftNET ou migrer progressivement via la passerelle fournie.
+> Systèmes existants → rester en CraftNET ou migrer progressivement via les versions fournies.
 
 
 
