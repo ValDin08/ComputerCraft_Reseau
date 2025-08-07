@@ -7,7 +7,7 @@
 Bienvenue dans le serveur **Bucheron** pour ComputerCraft !  
 Ce serveur gère la supervision, l’autorisation et la gestion des turtles et relais associés à la production de bois.
 
-## Version actuelle : 4.0-alpha02
+## Version actuelle : 4.0-alpha03
 
 ### 📝 Patchnote
 <details>
@@ -23,10 +23,12 @@ Reception d'une trame basique de statut de la turtle.*
 *3.0 : Ajout d'un écran IHM pour supervision de la turtle.  
 Gestion de l'autorisation de production via serveur relais coffre ET signal redstone TOR devant IHM.*
 
+*v4.0-alpha02 : Intégration de PixelLink.  
+Modification du programme en conséquence.*
+
 </details>
 
-**v4.0-alpha02 : Intégration de PixelLink.  
-Modification du programme en conséquence.**
+**v4.0-alpha03 : Corrections phase de test**
 
 ---
 
@@ -42,17 +44,12 @@ Modification du programme en conséquence.**
 
 ## 🚀 Installation du serveur
 
-1. **Placez le programme** `ServeurBucheron.lua` sur un ordinateur ComputerCraft (PC ou serveur dédié).
+1. **Placez les programmes** `Serveur.lua`, `startup.lua` et `PixelLink.lua` sur un ordinateur ComputerCraft (PC ou serveur dédié).
 2. **Ajoutez un modem** sur l’ordinateur, du côté de votre choix (`back`, `right`, etc).
 3. **Connectez un écran monitor** sur un côté de l’ordinateur pour la supervision locale.
-4. (Optionnel) **Assurez-vous que les turtles/relais sont configurés avec le même protocole PixelLink et la même ID serveur.**
+4. **Assurez-vous que les turtles/relais sont configurés avec le même protocole PixelLink et la même ID serveur.**
 
-**Démarrage rapide :**
-```
--- startup.lua
-local Bucheron = "ServeurBucheron"
-shell.run(Bucheron)
-```
+**Démarrage rapide :** Lors du démarrage du PC (Ctrl + R, démarrage serveur ou save), le serveur démarre automatiquement et se met en attente de messages.
 
 ## 📡Configuration
 Modifier les IDs
@@ -62,7 +59,7 @@ ServerID : l’ID de votre serveur (par défaut : celui du computer)
 
 TurtleIDs : liste des IDs turtles acceptées
 
-RelaisIDs : liste des relais associés
+RelayIDs : liste des relais associés
 
 ModemSide : côté du modem (back, right, etc)
 
