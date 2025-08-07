@@ -2,6 +2,8 @@
 <img width="733" height="740" alt="farm server" src="https://github.com/user-attachments/assets/3683572c-9c25-475d-8eef-ecf7e2f3f9cb" />
 </p>
 
+<img width="16" height="16" alt="image" src="https://github.com/user-attachments/assets/ed9d7c93-42b9-4f00-a5ab-595a9fa1a3b3" /> [Version française](README.md)
+
 # 🌐 Farmer Server — CC:Tweaked
 
 Welcome to the **Farmer** server for ComputerCraft!  
