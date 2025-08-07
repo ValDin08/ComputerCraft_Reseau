@@ -18,19 +18,19 @@ Avec PixelLink, reliez vos machines, simplifiez votre univers.
 
 ---
 
-## Version actuelle : 1.0.2
+## Version actuelle : 1.0-beta02
 
 ### 📝 Patchnote :
 <details>
   
 <summary>Voir l'historique des versions précédentes</summary>
-*1.0 : Version de base de PixelLink.*
+*1.0-alpha01 : Version de base de PixelLink.*
 
-*1.0.1 : Patch correctif.*
+*1.0-beta01 : Patch correctif.*
 
 </details>
 
-**1.0.2 : Patch correctif.**
+**1.0-beta02 : Patch correctif.**
 
 ---
 
@@ -135,8 +135,11 @@ end
 
 ---
 
-## 🔄 Migration depuis CraftNET (facultatif)
-Une passerelle CraftNET ↔ PixelLink est disponible dans bridge_craftnet.lua.
+## 🔄 Migration depuis CraftNET 
+> [!WARNING]
+> Obligatoire pour les dernières version de périphériques et serveurs !
+
+Pour migrer de CraftNET à PixelLink, installez le programme PixelLink.lua dans le dossier de votre PC/Turtle, puis installez y la dernière version du programme Turtle/Serveur/Relais disponible.
 
 ---
 
@@ -148,6 +151,9 @@ Timeout sécurité côté turtle/relais sans autorisation récente
 Logs serveur pour debug et supervision (timestamp, srcID, type message)
 
 Versionnement clair du protocole et programmes
+
+> [!WARNING]
+> La retransmission de signal n'est pas encore supportée par la version 1.0-b02. Cette fonction est en cours de développement.
 
 ---
 
