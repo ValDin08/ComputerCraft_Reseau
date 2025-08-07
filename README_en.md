@@ -30,7 +30,7 @@ Goal: unify communication, supervision, and control (production authorization, a
 Example of a typical network architecture. Connections are handled by PixelLink, in SingleCast or BroadCast:
 
 <p align="center">
-<img width="1773" height="320" alt="Network Architecture EN" src="https://github.com/user-attachments/assets/6b861a51-0078-4019-af2e-721f026b1bb7" />
+<img width="1773" height="320" alt="Architecture réseau EN" src="https://github.com/user-attachments/assets/fa0f2de5-75ee-4843-a4f7-218c4fcc031a" />
 </p>
 
 **Turtle**: sends its state, waits for authorization, executes orders.
