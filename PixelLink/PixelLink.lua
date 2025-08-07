@@ -1,17 +1,24 @@
 local PixelLink = {}
+local serveur_ref = nil
 
 local lastMessageID = 0
 
 -- FONCTIONS
-    --Traçabilité messages
+    -- Traçabilité messages
     local function nextMessageID()
         lastMessageID = lastMessageID + 1
         return lastMessageID
     end
+	
+	-- Mise en fonction PixelLink pour serveur
+		function PixelLink.setServeur(ref)
+			serveur_ref = ref
+		end
 
     -- Fonctions d'envoi de message
         -- Envoi simple (fire and forget)
             function PixelLink.send(msgType, srcType, dstID, payload)
+				print("Envoi simple en cours...")
                 local message = {
                     msgID = nextMessageID(),
                     msgType = msgType,
@@ -32,6 +39,7 @@ local lastMessageID = 0
 
         -- Envoi avec attente de réponse
             function PixelLink.request(msgType, srcType, dstID, payload, timeout)
+				print("Envoi d'une requête en cours...")
                 local message = {
                     msgID = nextMessageID(),
                     msgType = msgType,
@@ -77,24 +85,25 @@ local lastMessageID = 0
     -- Fonctions de réception des messages
         function PixelLink.receive(srcType, timeout)
             -- Attend une réponse pendant un temps (par défaut 30 secondes)
+			print("Attente message...")
             local t = timeout or 30
             local id, receivedMessage = rednet.receive(t) -- Attend un message
             if type(receivedMessage) == "table" then -- Vérification si le message reçu est bien sous la forme d'une table
                 if receivedMessage.msgType == "connect" then -- Demande de connexion
-                    server.updateHMI(receivedMessage) -- Mise à jour de l'IHM et des données serveur
+                    serveur_ref.updateHMI(receivedMessage) -- Mise à jour de l'IHM et des données serveur
                     payload = {}
                     PixelLink.send("connect", srcType, id, payload) -- Envoi de la réponse de connexion
-                    return true, id
+                    return true, receivedMessage
 
                 elseif receivedMessage.msgType == "auth" then -- Demande d'autorisation de travail
-                    local authorization = server.authorization()
+                    local authorization = serveur_ref.authorization()
                     payload = {authorization = authorization}
                     PixelLink.send("auth", srcType, id, payload) -- Envoi de la réponse d'autorisation de travail
-                    return true, id
+                    return true, receivedMessage
 
                 elseif receivedMessage.msgType == "status" then -- Reception de statut
-                    server.updateHMI(receivedMessage) -- Mise à jour de l'IHM et des données serveur
-                    return true, id
+                    serveur_ref.updateHMI(receivedMessage) -- Mise à jour de l'IHM et des données serveur
+                    return true, receivedMessage
 
                 else
                     return false
