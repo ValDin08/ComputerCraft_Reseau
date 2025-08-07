@@ -1,6 +1,6 @@
 -- DECLARATION DES VARIABLES
 	-- Globales	
-		local ServerVersion = "4.0a02"
+		local ServerVersion = "4.0a03"
 		local TurtleVersion = "4.0a02"
 		local METIER  		= "Serveur"
 		local Serveur 		= require("Serveur")
