@@ -9,7 +9,7 @@
 Bienvenue dans le serveur **Bucheron** pour ComputerCraft !  
 Ce serveur gère la supervision, l’autorisation et la gestion des turtles et relais associés à la production de bois.
 
-## Version actuelle : 4.0-alpha03
+## Version actuelle : 4.0-alpha04
 
 ### 📝 Patchnote
 <details>
@@ -28,9 +28,11 @@ Gestion de l'autorisation de production via serveur relais coffre ET signal reds
 *v4.0-alpha02 : Intégration de PixelLink.  
 Modification du programme en conséquence.*
 
+*v4.0-alpha03 : Corrections phase de test*
+
 </details>
 
-**v4.0-alpha03 : Corrections phase de test**
+***v4.0-alpha04 : Corrections phase de test**
 
 ---
 
@@ -79,6 +81,11 @@ Quantité de ressources dans les coffres/relais
 Dernières alertes ou défauts
 
 Nombre de cycles de production
+
+Exemple de supervision, adaptable en modifiant la fonction **Serveur.displayHMI()** :
+
+<img width="3840" height="2019" alt="2025-08-07_18 53 04" src="https://github.com/user-attachments/assets/22cad96b-d9b8-4b6a-b213-383f355b6271" />
+
 
 > [!IMPORTANT]
 > Dépendant de PixelLink version à jour sur toutes les turtles et relais connectés.
