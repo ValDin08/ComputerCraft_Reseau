@@ -1,5 +1,5 @@
 --[[Serveur : Bucheron
-Version : 4.0a02
+Version : 4.0a03
 
 Patchnote : 
 1.0 : Version de base du serveur de la turtle bucheron.
@@ -18,7 +18,7 @@ Modification du programme en conséquence.
 ******************************************************************************************************************************************************************************************************************************************************]]
 -- DECLARATION DES VARIABLES
     -- Globales
-		local ServerVersion = "4.0a02"
+		local ServerVersion = "4.0a03"
 		local TurtleVersion = "4.0a02"
 		local METIER  		= "Serveur"
 		local PixelLink_ref = nil
@@ -276,5 +276,6 @@ Modification du programme en conséquence.
             return true
 
         end
+
 
 	return Serveur
