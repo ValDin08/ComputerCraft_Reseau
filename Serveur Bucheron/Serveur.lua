@@ -252,6 +252,7 @@ Modification du programme en conséquence.
                     CurrentFuelLevel = receivedMessage.payload.fuel
                     CurrentInventoryLevel[1] = receivedMessage.payload.inventory.rawMaterial
                     CurrentInventoryLevel[2] = receivedMessage.payload.inventory.harvestedMaterial
+					LastOrientationString = orientationToString(TurtleLastOrientation)
 
                 elseif receivedMessage.srcID == FuelRelayID then
 					print("Statut reçu du relais carburant")
