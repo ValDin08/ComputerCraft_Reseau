@@ -1,5 +1,5 @@
 --[[Serveur : Bucheron
-Version : 4.0a03
+Version : 4.0a02
 
 Patchnote : 
 1.0 : Version de base du serveur de la turtle bucheron.
@@ -18,8 +18,8 @@ Modification du programme en conséquence.
 ******************************************************************************************************************************************************************************************************************************************************]]
 -- DECLARATION DES VARIABLES
     -- Globales
-		local ServerVersion = "4.0a03"
-		local TurtleVersion = "4.0a02"
+		local ServerVersion = "4.0a04"
+		local TurtleVersion = "4.0a03"
 		local METIER  		= "Serveur"
 		local PixelLink_ref = nil
 
@@ -245,6 +245,7 @@ Modification du programme en conséquence.
             elseif receivedMessage.msgType == "status" then -- Message de statut reçu
                 if receivedMessage.srcID == TurtleID then -- Statut de la Turtle
 					print("Statut reçu d'une Turtle")
+                    TurtleConnected = true
                     TurtleLastPosition = receivedMessage.payload.pos
                     TurtleLastOrientation = receivedMessage.payload.orientation
                     HarvestCycle = receivedMessage.payload.cycles
@@ -254,6 +255,7 @@ Modification du programme en conséquence.
 
                 elseif receivedMessage.srcID == FuelRelayID then
 					print("Statut reçu du relais carburant")
+                    FuelRelayConnected = true
 					if receivedMessage.payload and receivedMessage.payload.inventory.chestFilling then
 						FuelChestFillingLevel = math.floor(receivedMessage.payload.inventory.chestFilling)
 						
@@ -261,12 +263,15 @@ Modification du programme en conséquence.
 
                 elseif receivedMessage.srcID == HarvestRelayID then
 					print("Statut reçu du relais récoltes")
+                    HarvestRelayConnected = true
 					if receivedMessage.payload and receivedMessage.payload.inventory.chestFilling then
 						HarvestChestFillingLevel = math.floor(receivedMessage.payload.inventory.chestFilling)
 						
 					end
 
                 end
+				
+				TurtleAuthorized = Serveur.authorization()
 
 
                 Serveur.displayHMI() -- Mise à jour de l'IHM
@@ -276,6 +281,5 @@ Modification du programme en conséquence.
             return true
 
         end
-
 
 	return Serveur
