@@ -1,0 +1,42 @@
+<p align="center">
+<img width="300" height="163" alt="hq720" src="https://github.com/user-attachments/assets/808230f7-743a-485b-88c3-7102a9066de2" />
+</p>
+
+# Machine Network – CraftNET/PixelLink (ComputerCraft)
+Universal network library and scripts for turtles, relays, and servers using ComputerCraft.  
+Goal: unify communication, supervision, and control (production authorization, alerts, inventories, positions, etc.) in a modular and extensible architecture.
+
+## ✨ Features
+**CraftNET**: Legacy protocol, simple, based on RequestID/AnswerID.
+
+**PixelLink**: Modern, structured, and extensible protocol (typed messages, payloads, roles, multi-site supervision).
+
+## ⚙️ Network Components Status
+
+![GitHub](https://img.shields.io/badge/PixelLink-Beta_v1.0--b02-yellow)
+![GitHub](https://img.shields.io/badge/CraftNET-Legacy_v1.0-lightblue)
+![GitHub](https://img.shields.io/badge/Timber_server-Alpha_v4.0--a03-orange)
+![GitHub](https://img.shields.io/badge/Farmer_server-Stable_v1.0-green)
+![GitHub](https://img.shields.io/badge/Relay-Alpha_v2.0--a01-orange)
+
+
+> [!TIP]
+> New deployments → use PixelLink.  
+> Existing systems → stay on CraftNET or migrate progressively with the provided versions.
+
+
+## 🧱 Architecture & Roles
+
+Example of a typical network architecture. Connections are handled by PixelLink, in SingleCast or BroadCast:
+
+<p align="center">
+<img width="1773" height="320" alt="Network Architecture EN" src="https://github.com/user-attachments/assets/6b861a51-0078-4019-af2e-721f026b1bb7" />
+</p>
+
+**Turtle**: sends its state, waits for authorization, executes orders.
+
+**Relay**: publishes chest status (filling level, etc.), relays sensor data.
+
+**Server**: aggregates states, decides on authorization, displays the HMI/monitor.
+
+**Supervisor (optional)**: centralizes all production servers.
