@@ -18,10 +18,19 @@ Avec PixelLink, reliez vos machines, simplifiez votre univers.
 
 ---
 
-## Version actuelle : 1.0
+## Version actuelle : 1.0.2
 
 ### 📝 Patchnote :
-**1.0 : Version de base de PixelLink.**
+<details>
+  
+<summary>Voir l'historique des versions précédentes</summary>
+*1.0 : Version de base de PixelLink.*
+
+*1.0.1 : Patch correctif.*
+
+</details>
+
+**1.0.2 : Patch correctif.**
 
 ---
 
