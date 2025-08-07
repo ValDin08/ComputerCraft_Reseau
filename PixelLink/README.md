@@ -40,9 +40,9 @@ Satellite GPS présent et actif sur la carte.
 
 2. Chargez PixelLink dans vos scripts :
 ```
-local pixellink = require("PixelLink")
-pixellink.role = "turtle" -- "relay", "server", ou "supervisor"
-pixellink.serverID = 12   -- ID serveur principal
+local PixelLink = require("PixelLink")
+PixelLink.role = "turtle" -- "relay", "server", ou "supervisor"
+PixelLink.serverID = 12   -- ID serveur principal
 ```
 3. Lancez la boucle principale adaptée à votre rôle (voir exemples).
 
@@ -84,12 +84,12 @@ PixelLink utilise des messages typés pour une lisibilité maximale :
 ## 🚀 Exemples rapides
 ### Côté Turtle
 ```
-local pixellink = require("PixelLink")
-pixellink.role = "turtle"; pixellink.serverID = 12
+local PixelLink = require("PixelLink")
+PixelLink.role = "turtle"; pixellink.serverID = 12
 rednet.open("right")
 
 while true do
-  pixellink.sendStatus({
+  PixelLink.sendStatus({
     pos = {gps.locate()},
     orientation = 1,
     inventory = {fuel=32, saplings=20},
@@ -98,7 +98,7 @@ while true do
     running = true
   })
 
-  local auth = pixellink.waitForAuth(3)
+  local auth = PixelLink.waitForAuth(3)
   if not auth or not auth.authorized then
     -- Pause ou sécurité
   end
@@ -109,8 +109,8 @@ end
 
 ### Côté Serveur
 ```
-local pixellink = require("PixelLink")
-pixellink.role = "server"
+local PixelLink = require("PixelLink")
+PixelLink.role = "server"
 rednet.open("back")
 
 local turtles = {}
@@ -119,7 +119,7 @@ while true do
   local id, msg = rednet.receive(10)
   if msg and msg.msgType == "status" then
     turtles[msg.srcID] = msg.payload
-    pixellink.sendAuth(msg.srcID, {authorized=true})
+    PixelLink.sendAuth(msg.srcID, {authorized=true})
   end
 end
 ```
