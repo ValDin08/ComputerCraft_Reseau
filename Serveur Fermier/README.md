@@ -2,6 +2,8 @@
 <img width="733" height="740" alt="serveur fermier" src="https://github.com/user-attachments/assets/3683572c-9c25-475d-8eef-ecf7e2f3f9cb" />
 </p>
 
+<img width="16" height="16" alt="image" src="https://github.com/user-attachments/assets/a03063ab-5834-437d-846d-acc130d903ab" /> [English version](README_en.md)
+
 # 🌐 Serveur Fermier — CC:Tweaked
 
 Bienvenue dans le serveur **Fermier** pour ComputerCraft !  
