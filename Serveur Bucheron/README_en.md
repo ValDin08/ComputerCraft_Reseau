@@ -9,7 +9,7 @@
 Welcome to the **Lumberjack** server for ComputerCraft!  
 This server handles supervision, authorization, and management of turtles and relays involved in wood production.
 
-## Current Version: 4.0-alpha03
+## Current Version: 4.0-alpha04
 
 ### 📝 Patchnote
 <details>
@@ -28,9 +28,11 @@ Work authorization is now managed via the chest relay server **AND** a redstone 
 *v4.0-alpha02: Integration of PixelLink.  
 Program updated accordingly.*
 
+*v4.0-alpha03: Test phase corrections*
+
 </details>
 
-**v4.0-alpha03: Test phase corrections**
+**v4.0-alpha04: Test phase corrections**
 
 ---
 
