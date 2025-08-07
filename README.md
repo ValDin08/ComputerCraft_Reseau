@@ -27,6 +27,13 @@ PixelLink : protocole moderne, structuré, extensible (messages typés, payloads
 
 
 ## 🧱 Architecture & rôles
+
+Exemple d'architecture réseau typique. Les liaisons sont assurées par PixelLink, en SingleCast ou en BroadCast : 
+
+<p align="center">
+<img width="1773" height="320" alt="Architecture réseau fr" src="https://github.com/user-attachments/assets/6b861a51-0078-4019-af2e-721f026b1bb7" />
+</p>
+
 Turtle : envoie son état, attend l’autorisation, exécute les ordres.
 
 Relais : publie l’état des coffres (remplissage…), relaie des capteurs.
