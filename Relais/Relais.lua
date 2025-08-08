@@ -4,15 +4,15 @@
 		local RelayName     =	"Carburant"	-- Nom du relais
 		
 	-- Réseau
-		local LocalID			=	os.getComputerID()	-- ID de la turtle
+		local LocalID			=	os.getComputerID()	-- ID du relais
 		local ServerID			=	11					-- ID du serveur
 		local ModemSide			=	"right"				-- Côté du modem sur la turtle
 		local ServerConnected	=	false				-- Serveur ateignable et connecté au relais
 		local PixelLink 		=	require("PixelLink")
 
-    -- Coffre
+    -- Coffre(s)
         local Chest = {
-            ChestSide     = "", -- Côté où se situent le coffre
+            ChestSide     = "", -- Côté où se situe le coffre
             SlotQty       = 0,  -- Nombre de slots dans le coffre
             ChestSize     = 0,  -- Taille totale du coffre
             ChestFilling  = 0,  -- Remplissage du coffre (%)
