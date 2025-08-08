@@ -1,5 +1,5 @@
 <p align="center">    
-<img width="640" height="640" alt="turtle bucheron" src=https://github.com/user-attachments/assets/73cd67e0-4629-429a-ab7e-46a531eb5b43>
+<img width="700" height="700" alt="Relais 3" src=https://github.com/user-attachments/assets/ae20e0fc-c098-4fc4-9223-1f0db1444626>
 </p>
 
 <img width="16" height="16" alt="image" src="https://github.com/user-attachments/assets/a03063ab-5834-437d-846d-acc130d903ab" /> [English version](README_en.md)
