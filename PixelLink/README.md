@@ -24,6 +24,7 @@ Avec PixelLink, reliez vos machines, simplifiez votre univers.
 <details>
   
 <summary>Voir l'historique des versions précédentes</summary>
+
 *1.0-alpha01 : Version de base de PixelLink.*
 
 *1.0-beta01 : Patch correctif.*
