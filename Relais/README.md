@@ -7,15 +7,36 @@
 # Relais – CC:Tweaked
 Ce dossier contient les programmes destinés aux **PC relais** utilisés pour surveiller l’état des coffres (carburant, récolte, etc.) dans l’écosystème PixelLink / CraftNET.
 
+---
+
 ## Présentation
 Les relais servent de “capteurs” entre les serveurs et les turtles. Ils surveillent le remplissage des coffres associés (carburant, bois, récoltes…) et transmettent ces informations aux serveurs via le protocole réseau PixelLink.  
 Ils pourront ultérieurement servir de borne de retransmission entre un relais/une turtle et un serveur local ou un serveur local et le serveur global. --> Pas encore implémenté dans PixelLink v1.0.2.  
+
+---
 
 ## Fonctionnalités
 - Surveillance en temps réel du taux de remplissage d'un coffre.
 - Transmission périodique de l’état au serveur local.
 - Gestion multi-coffre possible (ex : carburant à droite, bois à gauche…).
 - Intégration complète avec le protocole PixelLink (statut, alertes, autorisation).
+
+---
+
+## Version actuelle : 2.0
+
+### 📝 Patchnote :
+<details>
+  
+<summary>Voir l'historique des versions précédentes</summary>
+
+*1.0 : Version de base de des relais.*
+
+</details>
+
+**2.0 : Intégration de PixelLink aux relais.**
+
+---
 
 ## Utilisation
 1. **Installation** : Place le fichier `Relais.lua` dans le dossier du PC relais.
@@ -30,11 +51,15 @@ shell.run(METIER)*
 
 4. Les relais s’identifient auprès du serveur et transmettent leur état en continu.
 
+---
+
 ## Prérequis
 - CC:Tweaked (Minecraft mod)
 - PixelLink (module réseau, version ≥ 1.0.2)
 - Un modem (sans fil ou câblé) connecté au PC relais
 - Un serveur local sur lequel est installé une version **v4.0** ou supérieure
+
+---
 
 ## Astuces
 ### Coffres multiples
