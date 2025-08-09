@@ -8,10 +8,14 @@
 
 This folder contains the programs intended for **relay PCs** used to monitor the state of chests (fuel, harvest, etc.) in the PixelLink / CraftNET ecosystem.
 
+---
+
 ## Overview
 
 Relays act as “sensors” between servers and turtles. They monitor the filling level of associated chests (fuel, wood, harvests, etc.) and transmit this information to servers via the PixelLink network protocol.  
 In the future, they may also act as repeater nodes between a relay/turtle and a local server, or between a local server and the global server. --> Not yet implemented in PixelLink v1.0.2.
+
+---
 
 ## Features
 
@@ -20,6 +24,22 @@ In the future, they may also act as repeater nodes between a relay/turtle and a 
 - Multi-chest management possible (e.g.: fuel on the right, wood on the left…).
 - Full integration with the PixelLink protocol (status, alerts, authorization).
 
+---
+
+## Current version : 2.0
+
+### 📝 Patchnote :
+<details>
+  
+<summary>Display previous versions history</summary>
+
+*1.0 : Basic version of relays program.*
+
+</details>
+
+**2.0 : PixelLink integration to relays.**
+
+---
 ## Usage
 
 1. **Installation**: Place the `Relay.lua` file in the relay PC's folder.
@@ -33,6 +53,8 @@ shell.run(METIER)*
 > **Alternative**: Copy the code from *Relay.lua* into your *startup.lua* file.
 
 4. Relays will identify themselves to the server and continuously send their status.
+
+---
 
 ## Requirements
 
