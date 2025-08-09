@@ -1,6 +1,6 @@
 -- DECLARATION DES VARIABLES
 	-- Globales
-		local RelayVersion	=	"1.0"	    -- Version actuelle du programme
+		local RelayVersion	=	"2.0"	    -- Version actuelle du programme
 		local RelayName     =	"Carburant"	-- Nom du relais
 		
 	-- Réseau
