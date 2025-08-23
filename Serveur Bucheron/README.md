@@ -53,7 +53,7 @@ Modification du programme en conséquence.*
 1. **Placez les programmes** `Serveur.lua`, `startup.lua` et `PixelLink.lua` sur un ordinateur ComputerCraft (PC ou serveur dédié).
 2. **Ajoutez un modem** sur l’ordinateur, du côté de votre choix (`back`, `right`, etc).
 3. **Connectez un écran monitor** sur un côté de l’ordinateur pour la supervision locale.
-4. **Assurez-vous que les turtles/relais sont configurés avec le même protocole PixelLink et la même ID serveur.**
+4. **Assurez-vous que les turtles/relais soient configurés avec le même protocole PixelLink et la même ID serveur.**
 
 **Démarrage rapide :** Lors du démarrage du PC (Ctrl + R, démarrage serveur ou save), le serveur démarre automatiquement et se met en attente de messages.
 
