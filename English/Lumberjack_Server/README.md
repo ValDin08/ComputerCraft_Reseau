@@ -48,7 +48,7 @@ Program updated accordingly.*
 
 ## 🚀 Server Installation
 
-1. **Place the programs** `Serveur.lua`, `startup.lua`, and `PixelLink.lua` on a ComputerCraft computer (PC or dedicated server).
+1. **Place the programs** `Server.lua`, `startup.lua`, and `PixelLink.lua` on a ComputerCraft computer (PC or dedicated server).
 2. **Add a modem** to the computer, on your chosen side (`back`, `right`, etc).
 3. **Connect a monitor** to a side of the computer for local supervision.
 4. **Ensure that turtles/relays are configured with the same PixelLink protocol and server ID.**
@@ -84,7 +84,7 @@ Number of production cycles
 
 > [!IMPORTANT]
 > Depends on up-to-date PixelLink version on all connected turtles and relays.
-> The PixelLink module is [available on GitHub](https://github.com/ValDin08/ComputerCraft_Reseau/tree/main/PixelLink)
+> The PixelLink module is [available on GitHub](https://github.com/ValDin08/ComputerCraft_Reseau/tree/main/English/PixelLink)
 
 > [!IMPORTANT]
 > Connected turtles must be at least **version 4.0**.
