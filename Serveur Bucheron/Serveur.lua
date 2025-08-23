@@ -1,27 +1,9 @@
---[[Serveur : Bucheron
-Version : 4.0a02
-
-Patchnote : 
-1.0 : Version de base du serveur de la turtle bucheron.
-Gestion de l'autorisation de fonctionnement de la turtle, si celle ci perd la communication avec le serveur, elle arrête de fonctionner.
-Reception d'une trame basique de statut de la turtle.
-
-2.0 : Intégration d'un PC relais coffre donnant conditionnant l'autorisation de travail de la turtle.
-
-3.0 : Ajout d'un écran IHM pour supervision de la turtle.
-Gestion de l'autorisation de production via serveur relais coffre ET signal redstone TOR devant IHM.
-3.1 : Utilisation de deux relais au lieu d'un.
-
-4.0 : Intégration de PixelLink.
-Modification du programme en conséquence.
-
-******************************************************************************************************************************************************************************************************************************************************]]
 -- DECLARATION DES VARIABLES
     -- Globales
-		local ServerVersion = "4.0a04"
+		local ServerVersion = "4.0b01"
 		local TurtleVersion = "4.0a03"
 		local METIER  		= "Serveur"
-		local PixelLink_ref = nil
+		local PixelLinkRef  = nil
 
     -- IDs et réseau
         local Serveur                   = {}
@@ -80,7 +62,7 @@ Modification du programme en conséquence.
 
 	-- Mise en fonction PixelLink pour serveur
 		function Serveur.setPixelLink(ref)
-			PixelLink_ref = ref
+			PixelLinkRef = ref
 			
 		end
 
@@ -284,3 +266,4 @@ Modification du programme en conséquence.
         end
 
 	return Serveur
+
