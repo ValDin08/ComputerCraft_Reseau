@@ -2,7 +2,7 @@
 <img width="300" height="163" alt="hq720" src="https://github.com/user-attachments/assets/808230f7-743a-485b-88c3-7102a9066de2" />
 </p>
 
-<img width="16" height="16" alt="image" src="https://github.com/user-attachments/assets/a03063ab-5834-437d-846d-acc130d903ab" /> [English version](README_en.md)
+<img width="16" height="16" alt="image" src="https://github.com/user-attachments/assets/a03063ab-5834-437d-846d-acc130d903ab" /> [English version](English/README.md)
 
 # Réseau des machines – CraftNET/PixelLink (ComputerCraft)
 Bibliothèque et scripts réseau universels pour turtles, relais et serveurs sous ComputerCraft.  
