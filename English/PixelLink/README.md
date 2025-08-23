@@ -1,6 +1,6 @@
 <img width="1108" height="386" alt="image" src="https://github.com/user-attachments/assets/a6ee35af-42a3-48e8-b43b-096884e06a47" />
 
-<img width="16" height="16" alt="image" src="https://github.com/user-attachments/assets/ed9d7c93-42b9-4f00-a5ab-595a9fa1a3b3" /> [Version française](README.md)
+<img width="16" height="16" alt="image" src="https://github.com/user-attachments/assets/ed9d7c93-42b9-4f00-a5ab-595a9fa1a3b3" /> [Version française](../PixelLink/README.md)
 
 ## 🌐 PixelLink
 PixelLink is an advanced network protocol for ComputerCraft (CC:Tweaked), designed to efficiently connect turtles, relays, servers, and supervisors in your Minecraft environments.
