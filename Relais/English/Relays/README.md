@@ -2,7 +2,7 @@
 <img width="700" height="700" alt="Relais 3" src=https://github.com/user-attachments/assets/ae20e0fc-c098-4fc4-9223-1f0db1444626>
 </p>
 
-<img width="16" height="16" alt="image" src="https://github.com/user-attachments/assets/ed9d7c93-42b9-4f00-a5ab-595a9fa1a3b3" /> [Version française](README.md)
+<img width="16" height="16" alt="image" src="https://github.com/user-attachments/assets/ed9d7c93-42b9-4f00-a5ab-595a9fa1a3b3" /> [Version française](../../Relais/README.md)
 
 # Relays – CC:Tweaked
 
