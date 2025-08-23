@@ -1,5 +1,5 @@
 local PixelLink = {}
-local serveur_ref = nil
+local serverRef = nil
 
 local lastMessageID = 0
 
@@ -12,7 +12,7 @@ local lastMessageID = 0
 	
 	-- Mise en fonction PixelLink pour serveur
 		function PixelLink.setServeur(ref)
-			serveur_ref = ref
+			serverRef = ref
 		end
 
     -- Fonctions d'envoi de message
@@ -90,19 +90,19 @@ local lastMessageID = 0
             local id, receivedMessage = rednet.receive(t) -- Attend un message
             if type(receivedMessage) == "table" then -- Vérification si le message reçu est bien sous la forme d'une table
                 if receivedMessage.msgType == "connect" then -- Demande de connexion
-                    serveur_ref.updateHMI(receivedMessage) -- Mise à jour de l'IHM et des données serveur
+                    serverRef.updateHMI(receivedMessage) -- Mise à jour de l'IHM et des données serveur
                     payload = {}
                     PixelLink.send("connect", srcType, id, payload) -- Envoi de la réponse de connexion
                     return true, receivedMessage
 
                 elseif receivedMessage.msgType == "auth" then -- Demande d'autorisation de travail
-                    local authorization = serveur_ref.authorization()
+                    local authorization = serverRef.authorization()
                     payload = {authorization = authorization}
                     PixelLink.send("auth", srcType, id, payload) -- Envoi de la réponse d'autorisation de travail
                     return true, receivedMessage
 
                 elseif receivedMessage.msgType == "status" then -- Reception de statut
-                    serveur_ref.updateHMI(receivedMessage) -- Mise à jour de l'IHM et des données serveur
+                    serverRef.updateHMI(receivedMessage) -- Mise à jour de l'IHM et des données serveur
                     return true, receivedMessage
 
                 else
