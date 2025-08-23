@@ -46,8 +46,8 @@ In the future, they may also act as repeater nodes between a relay/turtle and a 
 2. **Configuration**: Edit the slot/side parameters according to your chest setup.
 3. **Startup**: Start the program with the command:
 ```
-*local METIER = "Relais"
-shell.run(METIER)*
+*local JOB = "Relay"
+shell.run(JOB)*
 ```
 > [!TIP]
 > **Alternative**: Copy the code from *Relay.lua* into your *startup.lua* file.
@@ -74,26 +74,26 @@ When sending your first set of messages, use *RelayName*, then on the next send,
 
 ```
 -- Globales
-  local RelayVersion	=	"1.0"	    -- Version actuelle du programme
-  local RelayName     =	"Carburant"	-- Nom du relais principal
-  local RelayNameBis  =	"Bois"	-- Nom du relais alternatif
+  local RelayVersion	=	"1.0"	    -- Current program version
+  local RelayName     =	"Fuel"	-- Name of the main relay
+  local RelayNameBis  =	"Logs"	-- Alternative name of the relay
 [...]
--- Envoi de la demande de connexion au serveur par le relais principal
+-- Sending server connection request from the main relay
   ConnectToServer(RelayName)  
 
--- Actualisation du comptage du coffre 1
+-- Refreshing counting on chest 1
   ChestFillingPercentage(Chest1)
 
--- Envoi du statut du coffre 1
+-- Sending chest 1 status
   StatusToServer(Chest1)
 
--- Envoi de la demande de connexion au serveur par le relais alternatif
+-- Sending server connection request from the alternative relay
   ConnectToServer(RelayNameBis)  
 
--- Actualisation du comptage du coffre 2
+-- Refreshing counting on chest 2
   ChestFillingPercentage(Chest2)
 
--- Envoi du statut du coffre 2
+-- Sending chest 2 status
   StatusToServer(Chest2)
 ```
 Just adapt the ConnectToServer function so that it sends the relay name in the payload, and on the server side, make sure reception checks the relay name rather than just its id.
