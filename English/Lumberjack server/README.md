@@ -2,7 +2,7 @@
 <img width="937" height="956" alt="lumberjack server" src="https://github.com/user-attachments/assets/5dc106d3-fa58-4c1d-983b-3d4ff9ed897d" />
 </p>
 
-<img width="16" height="16" alt="image" src="https://github.com/user-attachments/assets/ed9d7c93-42b9-4f00-a5ab-595a9fa1a3b3" /> [Version française](README.md)
+<img width="16" height="16" alt="image" src="https://github.com/user-attachments/assets/ed9d7c93-42b9-4f00-a5ab-595a9fa1a3b3" /> [Version française](../../Serveur_Bucheron/README.md)
 
 # 🌐 Lumberjack Server — CC:Tweaked
 
