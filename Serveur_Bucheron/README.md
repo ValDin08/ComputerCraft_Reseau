@@ -2,7 +2,7 @@
 <img width="937" height="956" alt="serveur bucheron" src="https://github.com/user-attachments/assets/5dc106d3-fa58-4c1d-983b-3d4ff9ed897d" />
 </p>
 
-<img width="16" height="16" alt="image" src="https://github.com/user-attachments/assets/a03063ab-5834-437d-846d-acc130d903ab" /> [English version](English/Lumberjack_Server/README.md)
+<img width="16" height="16" alt="image" src="https://github.com/user-attachments/assets/a03063ab-5834-437d-846d-acc130d903ab" /> [English version](../English/Lumberjack_Server/README.md)
 
 # 🌐 Serveur Bucheron — CC:Tweaked
 
