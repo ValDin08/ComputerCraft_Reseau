@@ -1,7 +1,7 @@
 -- VARIABLES DECLARATION
 	-- Globals
 		local RelayVersion	=	"2.0"	    -- Current program version
-		local RelayName     =	"Carburant"	-- Relay name
+		local RelayName     =	"Fuel"	-- Relay name
 		
 	-- Network
 		local LocalID			=	os.getComputerID()	-- Relay ID
