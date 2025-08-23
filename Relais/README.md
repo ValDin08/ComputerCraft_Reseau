@@ -2,7 +2,7 @@
 <img width="700" height="700" alt="Relais 3" src=https://github.com/user-attachments/assets/ae20e0fc-c098-4fc4-9223-1f0db1444626>
 </p>
 
-<img width="16" height="16" alt="image" src="https://github.com/user-attachments/assets/a03063ab-5834-437d-846d-acc130d903ab" /> [English version](README_en.md)
+<img width="16" height="16" alt="image" src="https://github.com/user-attachments/assets/a03063ab-5834-437d-846d-acc130d903ab" /> [English version](../English/Relays/README.md)
 
 # Relais – CC:Tweaked
 Ce dossier contient les programmes destinés aux **PC relais** utilisés pour surveiller l’état des coffres (carburant, récolte, etc.) dans l’écosystème PixelLink / CraftNET.
