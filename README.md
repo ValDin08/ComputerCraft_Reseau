@@ -1,5 +1,5 @@
 <p align="center">
-<img width="300" height="163" alt="hq720" src="https://github.com/user-attachments/assets/808230f7-743a-485b-88c3-7102a9066de2" />
+<img width="300" height="163" alt="ComputerCraft" src="https://github.com/user-attachments/assets/22fbc8d9-fc20-4273-b375-d2101ff1841f" />
 </p>
 
 <img width="16" height="16" alt="image" src="https://github.com/user-attachments/assets/a03063ab-5834-437d-846d-acc130d903ab" /> [English version](English/README.md)
