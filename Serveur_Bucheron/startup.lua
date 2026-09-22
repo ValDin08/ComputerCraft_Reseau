@@ -1,54 +1,18 @@
 -- DECLARATION DES VARIABLES
-	-- Globales	
-		local ServerVersion = "4.0a03"
-		local TurtleVersion = "4.0a02"
+	-- Globales
 		local METIER  		= "Serveur"
 		local Serveur 		= require("Serveur")
 		local PixelLink 	= require("PixelLink")
 
     -- IDs et réseau
-        local LocalID                   = os.getComputerID()    -- ID du serveur
-        local TurtleID                  = 16                    -- ID de la turtle
-        local FuelRelayID               = 0                     -- ID du relais carburant
-        local HarvestRelayID            = 17                    -- ID du relais bois (à compléter si utilisé)
         local ModemSide                 = "back"                -- Côté du modem RedNet
-        local TurtleConnected           = false                 -- Turtle connectée
-        local TurtleAuthorized          = false                 -- Turtle autorisée à récolter
-        local FuelRelayConnected        = false                 -- Relais carburant connecté
-        local HarvestRelayConnected     = false                 -- Relais récoltes connecté
         local MasterServerIsPresent     = false                 -- Serveur principal présent sur l'installation
         local MasterServerID            = 0                     -- ID du serveur principal, si présent sur l'installation
 
-        -- Timeout de connexion
-            local TimeOuts = {
-                turtle      = 30,
-                fuelRelay   = 60,
-                harvestRelay= 60
-            }
-
-            local LastSeen = {
-                turtle      = 0,
-                fuelRelay   = 0,
-                harvestRelay= 0
-            }
-
-
-    -- Infos turtle
-        local TurtleLastPosition    = {0, 0, 0} -- Dernière position connue de la turtle (x,y,z)
-        local TurtleLastOrientation = 0         -- Dernière orientation connue de la turtle (1 = Nord / 2 = Sud / 3 = Est / 4 = Ouest)
-        local LastOrientationString = ""        -- Dernière orientation connue de la turtle (convertie en string)
-        local HarvestCycle          = 0         -- Nombre de cycles de récolte
-        local CurrentFuelLevel      = 0         -- Niveau de carburant actuel de la turtle
-        local CurrentInventoryLevel = {0, 0}    -- Niveau de l'inventaire de la turtle (matière de base, matière récoltée - extensible)
-
-    -- Infos relais
-        local FuelChestFillingLevel     = 0 -- Niveau de remplissage du coffre à carburant
-        local HarvestChestFillingLevel  = 0 -- Niveau de remplissage du coffre de récoltes
-
     -- Ecran & commandes
         local ScreenSide           = "left"                      -- Position de l'écran
-        local RedstoneInputSide    = "bottom"                    -- Position de l'entrée TOR
-        local HMI                  = peripheral.wrap(ScreenSide) -- Connexion de l'écran
+        local HMI                  = peripheral.wrap(ScreenSide) -- Connexion de l'écran (messages de démarrage uniquement,
+                                                                   -- l'affichage courant est ensuite géré par Serveur.displayHMI())
 
 --PROGRAMME
 	-- Liaison entre Serveur et PixelLink
@@ -56,10 +20,12 @@
 		Serveur.setPixelLink(PixelLink)
 
 	-- Affichage de la version sur la console et ouverture de la connexion à RedNet
+	-- Les versions viennent uniquement de Serveur.lua (Serveur.Version) : c'est la seule source
+	-- de vérité, affichée aussi bien ici qu'à l'écran par Serveur.displayHMI().
 		HMI.setBackgroundColor(colors.black)
 		HMI.clear()
 		print("Bienvenue sur le serveur Bucheron.")
-		print("Version serveur : "..ServerVersion..".")
+		print("Version serveur : "..Serveur.Version.server..".")
 		print("Ce serveur nécessite un module PixeLink.")
 		if PixelLink then
 			print("PixelLink présent, le serveur peut démarrer")
@@ -70,7 +36,7 @@
 			return
 
 		end
-		
+
 		print("Démarrage serveur en cours...")
 		os.sleep(2)
 
@@ -89,48 +55,42 @@
 		if MasterServerIsPresent then
 			print("Connexion au serveur principal en cours...")
 			os.sleep(2)
-			local payload = { }
-			local ServerConnected = PixelLink.request("connect", "server", MasterServerID, payload)
-			if ServerConnected then print("Serveur principal connecté avec succès!") else print("Serveur principal non atteignable.") end
-			
+			local connected = Serveur.connectToMasterServer(MasterServerID)
+			if connected then print("Serveur principal connecté avec succès!") else print("Serveur principal non atteignable.") end
+
 		end
 
-    -- Boucle principale
-        while true do
-            local receivedDatas, Datas = PixelLink.receive("server", 2)  -- On attend 2s max entre checks
+    -- Boucle réseau : réception des messages PixelLink et rafraîchissement périodique de l'IHM
+        local function NetworkLoop()
+            while true do
+                local receivedDatas, Datas = PixelLink.receive("server", 2)  -- On attend 2s max entre checks
 
-            if receivedDatas then
-                Serveur.updateLastSeen(Datas.srcID)
-				print("Message "..Datas.msgID.." reçu. Traitement terminé.")
+                if receivedDatas then
+                    Serveur.updateLastSeen(Datas.srcID)
+					print("Message "..Datas.msgID.." reçu. Traitement terminé.")
 
-            end
+                end
 
-            -- Vérifie TimeOuts de chaque entité
-            local now = os.clock()
-            if now - LastSeen.turtle > TimeOuts.turtle then
-                TurtleConnected = false
+                -- Vérifie les timeouts de chaque entité (état géré et affiché par le module Serveur)
+                Serveur.checkTimeouts()
 
-            else
-                TurtleConnected = true
+                Serveur.displayHMI()
 
             end
-
-            if now - LastSeen.fuelRelay > TimeOuts.fuelRelay then
-                FuelRelayConnected = false
-
-            else
-                FuelRelayConnected = true
-
-            end
-
-            if now - LastSeen.harvestRelay > TimeOuts.harvestRelay then
-                HarvestRelayConnected = false
-
-            else
-                HarvestRelayConnected = true
-
-            end
-
-            Serveur.displayHMI()
-
         end
+
+    -- Boucle tactile : écoute des appuis sur l'écran et déclenche la commande correspondante.
+    -- NB : "side" est l'identifiant réseau utilisé pour joindre l'écran (ScreenSide, car branché
+    -- directement sur un côté de l'ordinateur). S'il est relié via un modem filaire, remplacer la
+    -- comparaison ci-dessous par le nom réseau du moniteur (peripheral.getName(HMI) dans Serveur.lua).
+        local function TouchLoop()
+            while true do
+                local event, side, x, y = os.pullEvent("monitor_touch")
+                if side == ScreenSide then
+                    Serveur.handleTouch(x, y)
+                end
+            end
+        end
+
+    -- Les deux boucles tournent en parallèle : la réception réseau ne doit jamais bloquer les appuis écran
+        parallel.waitForAny(NetworkLoop, TouchLoop)

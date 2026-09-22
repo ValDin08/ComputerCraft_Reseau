@@ -9,7 +9,8 @@
 Welcome to the **Lumberjack** server for ComputerCraft!  
 This server handles supervision, authorization, and management of turtles and relays involved in wood production.
 
-## Current Version: 4.0-alpha04
+## Current Version: 5.0-alpha01
+### Generation: Lumen 🔆
 
 ### 📝 Patchnote
 <details>
@@ -30,9 +31,21 @@ Program updated accordingly.*
 
 *v4.0-alpha03: Test phase corrections*
 
+*v4.0-alpha04: Test phase corrections*
+
+*v4.0-beta01: Moved to Beta.*
+
 </details>
 
-**v4.0-alpha04: Test phase corrections**
+**5.0-alpha01: Removed the physical redstone lever, replaced by manual authorization controlled from the screen (combined with the automatic chest-filling safety check).  
+Added a touchscreen button grid: Authorize/Stop, Acknowledge, Reconnect, Force Refuel, Force Empty.  
+New reliable command channel: operator actions travel through the existing authorization reply with an acknowledgement, so a command is never lost even if a message drops.  
+The server now actually displays the last fault reported by the turtle (the field existed in the frame but was never shown).  
+Fixed a bug where the button grid was drawn at the wrong text scale and overflowed into neighboring cells.  
+Fixed a bug where the "Turtle connected" status never went back to NO after an actual disconnection (timeout state was duplicated between `startup.lua` and `Server.lua`, never synced): timeout logic is now centralized in `Server.checkTimeouts()`.  
+Fixed the `Server.connectToMasterServer` function (broken, never called) → now actually wired in.  
+Unified turtle/server version numbers through a single source of truth (`Server.Version`).  
+`FuelRelayID` defaults to `nil` instead of `0` (0 is a valid computer ID, unsafe as an "unconfigured" placeholder) — adjust it to your relay's real ID.**
 
 ---
 
@@ -87,7 +100,8 @@ Number of production cycles
 > The PixelLink module is [available on GitHub](https://github.com/ValDin08/ComputerCraft_Reseau/tree/main/English/PixelLink)
 
 > [!IMPORTANT]
-> Connected turtles must be at least **version 4.0**.
+> Connected turtles must be at least **version 4.0**.  
+> To use the touchscreen buttons (authorization, forced refuel, reconnect...), the turtle must be on generation **Lumen (5.0)**: an older turtle stays compatible for connection and status, but silently ignores any command sent to it.
 
 > [!IMPORTANT]
 > At least one relay must be integrated into the network.

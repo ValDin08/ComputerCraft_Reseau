@@ -20,7 +20,7 @@ Avec PixelLink, reliez vos machines, simplifiez votre univers.
 
 ---
 
-## Version actuelle : 1.0-beta02
+## Version actuelle : 1.0-beta03
 
 ### 📝 Patchnote :
 <details>
@@ -31,9 +31,13 @@ Avec PixelLink, reliez vos machines, simplifiez votre univers.
 
 *1.0-beta01 : Patch correctif.*
 
+*1.0-beta02 : Patch correctif.*
+
 </details>
 
-**1.0-beta02 : Patch correctif.**
+**1.0-beta03 : Correction d'une fuite de variable globale dans `PixelLink.receive` (payload non local).  
+`PixelLink.request` attend désormais réellement le délai complet demandé, en ignorant les messages sans rapport avec la requête en cours, au lieu de se satisfaire du premier message reçu de n'importe qui.  
+Ajout d'une corrélation requête/réponse (`replyTo`) : une réponse n'est acceptée que si elle répond bien à CETTE requête précise, évitant qu'une réponse tardive à une ancienne requête soit prise pour la bonne.**
 
 ---
 

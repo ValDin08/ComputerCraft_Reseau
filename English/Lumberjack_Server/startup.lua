@@ -1,136 +1,96 @@
 -- VARIABLE DECLARATION
-	-- Globals	
-		local ServerVersion = "4.0a03"
-		local TurtleVersion = "4.0a02"
+	-- Globals
 		local Job     		= "Server"
 		local Server 		= require("Server")
 		local PixelLink 	= require("PixelLink")
 
     -- IDs and network
-        local LocalID                   = os.getComputerID()    -- Server ID
-        local TurtleID                  = 16                    -- Turtle ID
-        local FuelRelayID               = 0                     -- Fuel relay ID
-        local HarvestRelayID            = 17                    -- Wood relay ID (to be completed if used)
-        local ModemSide                 = "back"                -- Side of the RedNet modem
-        local TurtleConnected           = false                 -- Turtle connected
-        local TurtleAuthorized          = false                 -- Turtle authorized to harvest
-        local FuelRelayConnected        = false                 -- Fuel relay connected
-        local HarvestRelayConnected     = false                 -- Harvest relay connected
+        local ModemSide                 = "back"                -- RedNet modem side
         local MasterServerIsPresent     = false                 -- Main server present in the installation
-        local MasterServerID            = 0                     -- Main server ID, if present in the installation
-
-        -- Connection timeouts
-            local TimeOuts = {
-                turtle      = 30,
-                fuelRelay   = 60,
-                harvestRelay= 60
-            }
-
-            local LastSeen = {
-                turtle      = 0,
-                fuelRelay   = 0,
-                harvestRelay= 0
-            }
-
-
-    -- Turtle info
-        local TurtleLastPosition    = {0, 0, 0} -- Last known turtle position (x,y,z)
-        local TurtleLastOrientation = 0         -- Last known turtle orientation (1 = North / 2 = South / 3 = East / 4 = West)
-        local LastOrientationString = ""        -- Last known turtle orientation (converted to string)
-        local HarvestCycle          = 0         -- Number of harvest cycles
-        local CurrentFuelLevel      = 0         -- Current fuel level of the turtle
-        local CurrentInventoryLevel = {0, 0}    -- Turtle inventory level (raw material, harvested material - extensible)
-
-    -- Relay info
-        local FuelChestFillingLevel     = 0 -- Fuel chest filling level
-        local HarvestChestFillingLevel  = 0 -- Harvest chest filling level
+        local MasterServerID            = 0                     -- Main server ID, if present
 
     -- Screen & controls
         local ScreenSide           = "left"                      -- Screen position
-        local RedstoneInputSide    = "bottom"                    -- TOR input position
-        local HMI                  = peripheral.wrap(ScreenSide) -- Screen connection
+        local HMI                  = peripheral.wrap(ScreenSide) -- Screen connection (startup messages only,
+                                                                   -- the live display is then handled by Server.displayHMI())
 
 -- PROGRAM
 	-- Link between Server and PixelLink
-		PixelLink.setServeur(Serveur)
-		Serveur.setPixelLink(PixelLink)
+		PixelLink.setServer(Server)
+		Server.setPixelLink(PixelLink)
 
-	-- Display version in the console and open RedNet connection
+	-- Display the version in the console and open the RedNet connection
+	-- Versions come only from Server.lua (Server.Version): it's the single source of truth,
+	-- shown both here and on screen by Server.displayHMI().
 		HMI.setBackgroundColor(colors.black)
 		HMI.clear()
 		print("Welcome to the Lumberjack Server.")
-		print("Server version: "..ServerVersion..".")
+		print("Server version: "..Server.Version.server..".")
 		print("This server requires a PixelLink module.")
 		if PixelLink then
-			print("PixelLink present, server can start")
+			print("PixelLink present, the server can start")
 
 		else
-			print("PixelLink not found, server cannot start. Install PixelLink module, then restart with Ctrl + R.")
+			print("PixelLink not found, the server cannot start. Install the PixelLink module, then restart with Ctrl + R.")
 			os.sleep(2)
 			return
 
 		end
-		
-		print("Starting server...")
+
+		print("Starting the server...")
 		os.sleep(2)
 
-		print("Starting secure connection...")
+		print("Starting the secure connection...")
 		rednet.open(ModemSide)
 		os.sleep(2)
 
-		print("Starting screen...")
+		print("Starting the screen...")
 		HMI.setCursorPos(1,1)
-		HMI.write("Starting screen...")
+		HMI.write("Starting the screen...")
 		os.sleep(2)
-		Serveur.displayHMI()
+		Server.displayHMI()
 		os.sleep(2)
 
-	-- Check if connection to the main server is needed
+	-- Check whether a connection to a main server is needed
 		if MasterServerIsPresent then
 			print("Connecting to the main server...")
 			os.sleep(2)
-			local payload = { }
-			local ServerConnected = PixelLink.request("connect", "server", MasterServerID, payload)
-			if ServerConnected then print("Main server successfully connected!") else print("Main server unreachable.") end
-			
+			local connected = Server.connectToMasterServer(MasterServerID)
+			if connected then print("Main server successfully connected!") else print("Main server unreachable.") end
+
 		end
 
-    -- Main loop
-        while true do
-            local receivedDatas, Datas = PixelLink.receive("server", 2)  -- Wait max 2s between checks
+    -- Network loop: receives PixelLink messages and periodically refreshes the HMI
+        local function NetworkLoop()
+            while true do
+                local receivedDatas, Datas = PixelLink.receive("server", 2)  -- Wait up to 2s between checks
 
-            if receivedDatas then
-                Serveur.updateLastSeen(Datas.srcID)
-				print("Message "..Datas.msgID.." received. Processing done.")
+                if receivedDatas then
+                    Server.updateLastSeen(Datas.srcID)
+					print("Message "..Datas.msgID.." received. Processing complete.")
 
-            end
+                end
 
-            -- Check timeouts for each entity
-            local now = os.clock()
-            if now - LastSeen.turtle > TimeOuts.turtle then
-                TurtleConnected = false
+                -- Check the timeouts for each entity (state managed and displayed by the Server module)
+                Server.checkTimeouts()
 
-            else
-                TurtleConnected = true
+                Server.displayHMI()
 
             end
-
-            if now - LastSeen.fuelRelay > TimeOuts.fuelRelay then
-                FuelRelayConnected = false
-
-            else
-                FuelRelayConnected = true
-
-            end
-
-            if now - LastSeen.harvestRelay > TimeOuts.harvestRelay then
-                HarvestRelayConnected = false
-
-            else
-                HarvestRelayConnected = true
-
-            end
-
-            Serveur.displayHMI()
-
         end
+
+    -- Touch loop: listens for screen taps and triggers the matching command.
+    -- NOTE: "side" is the network identifier used to reach the screen (ScreenSide, since it's wired
+    -- directly to a side of the computer). If it's connected through a wired modem, replace the
+    -- comparison below with the monitor's network name (peripheral.getName(HMI) in Server.lua).
+        local function TouchLoop()
+            while true do
+                local event, side, x, y = os.pullEvent("monitor_touch")
+                if side == ScreenSide then
+                    Server.handleTouch(x, y)
+                end
+            end
+        end
+
+    -- Both loops run in parallel: the network reception must never block screen touches
+        parallel.waitForAny(NetworkLoop, TouchLoop)
