@@ -18,7 +18,7 @@ Goal: unify communication, supervision, and control (production authorization, a
 ![GitHub](https://img.shields.io/badge/PixelLink-Beta_v1.0--b03-yellow)
 ![GitHub](https://img.shields.io/badge/CraftNET-Legacy_v1.0-lightblue)
 ![GitHub](https://img.shields.io/badge/Timber_server-Alpha_v5.0--a01-orange)
-![GitHub](https://img.shields.io/badge/Farmer_server-Stable_v1.0-green)
+![GitHub](https://img.shields.io/badge/Farmer_server-Alpha_v3.0--a01-orange)
 ![GitHub](https://img.shields.io/badge/Relay-Alpha_v2.0--a01-orange)
 
 

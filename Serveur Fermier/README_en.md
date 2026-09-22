@@ -9,13 +9,30 @@
 Welcome to the **Farmer** server for ComputerCraft!  
 This server manages the supervision, authorization, and control of turtles and relays involved in wheat/carrot production, etc.
 
-## Current Version: 1.0
+## Current Version: 3.0-alpha01
+### Generation: Lumen 🔆
+*(full project generation table on the [ComputerCraft_Turtle_Bucheron](https://github.com/ValDin08/ComputerCraft_Turtle_Bucheron#-generations) repository)*
 
 ### 📝 Patchnote
-*1.0: Initial version of the lumberjack turtle server.  
+<details>
+
+<summary>See previous version history</summary>
+
+*1.0: Initial version of the farmer turtle server, CraftNET protocol.  
 Manages work authorization for the turtle: if communication is lost, the turtle stops.  
 Receives basic status frames from the turtle.  
 Basic HMI management.*
+
+</details>
+
+**3.0-alpha01: Full migration from CraftNET to PixelLink.  
+Moved from a single program (`serveurFermier.lua`) to a module + entry-point architecture (`Server.lua` + `startup.lua`), identical to the lumberjack server's.  
+Removed the physical redstone lever, replaced by manual authorization controlled from the screen (combined with the automatic safety check on the drop-off chest filling level).  
+Added a touchscreen button grid: Authorize/Stop, Acknowledge, Reconnect, Force Refuel, Force Empty.  
+New reliable command channel with acknowledgement (a command is never lost if a message drops).  
+The server now displays the last fault reported by the turtle.  
+Fixed a non-functional connection timeout: the "Turtle connected" status never went back to NO after an actual disconnection.  
+The `Wood chest` field (a leftover from copy-pasting the lumberjack server) is renamed `Harvest chest`, more accurate for a wheat farm.**
 
 ---
 
@@ -31,17 +48,12 @@ Basic HMI management.*
 
 ## 🚀 Server Installation
 
-1. **Place the `serveurFermier.lua` program** on a ComputerCraft computer (PC or server).  
+1. **Place the `Server.lua`, `startup.lua`, and `PixelLink.lua` programs** on a ComputerCraft computer (PC or server).  
 2. **Add a modem** to the computer, on your chosen side (`back`, `right`, etc).  
-3. **Attach a monitor** to one side of the computer for local supervision.  
-4. **Ensure all turtles/relays use the same CraftNET protocol and server ID.**  
+3. **Attach a monitor** to one side of the computer for local supervision and touchscreen control.  
+4. **Ensure all turtles/relays are configured with the same PixelLink protocol and server ID.**  
 
-**Quick Start:**
-
-```
--- startup.lua
-shell.run("serveurFermier")
-```
+**Quick Start:** On PC startup (`Ctrl + R`, server boot, or on world load), the server starts automatically (`startup.lua`) and waits for messages.
 
 
 ## 📡Configuration
@@ -72,10 +84,11 @@ Last alerts or faults
 Number of production cycles
 
 > [!IMPORTANT]
-> Requires an up-to-date CraftNET version on all turtles and relays.
+> Requires an up-to-date PixelLink version on all connected turtles and relays.  
+> The PixelLink module is [available on GitHub](https://github.com/ValDin08/ComputerCraft_Reseau/tree/main/PixelLink).
 
 > [!IMPORTANT]
-> Connected turtles must be at least version **2.0**.
+> Connected turtles must be at least version **3.0-alpha01** (generation **Lumen**) for this server: an older turtle doesn't speak PixelLink and won't be able to connect.
 
 > [!IMPORTANT]
 > At least one relay must be connected to the network.

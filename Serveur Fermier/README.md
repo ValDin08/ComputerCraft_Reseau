@@ -9,13 +9,30 @@
 Bienvenue dans le serveur **Fermier** pour ComputerCraft !  
 Ce serveur gère la supervision, l’autorisation et la gestion des turtles et relais associés à la production de blé/carotte…].
 
-## Version actuelle : 1.0
+## Version actuelle : 3.0-alpha01
+### Génération : Lumen 🔆
+*(tableau complet des générations du projet sur le dépôt [ComputerCraft_Turtle_Bucheron](https://github.com/ValDin08/ComputerCraft_Turtle_Bucheron#-générations))*
 
 ### 📝 Patchnote
-*1.0 : Version de base du serveur de la turtle bucheron.  
+<details>
+
+<summary>Voir l'historique des versions précédentes</summary>
+
+*1.0 : Version de base du serveur de la turtle fermier, protocole CraftNET.  
 Gestion de l'autorisation de fonctionnement de la turtle, si celle ci perd la communication avec le serveur, elle arrête de fonctionner.  
 Reception d'une trame basique de statut de la turtle.  
 Gestion d'un IHM basique.*
+
+</details>
+
+**3.0-alpha01 : Migration complète de CraftNET vers PixelLink.  
+Passage d'un programme unique (`serveurFermier.lua`) à une architecture module + point d'entrée (`Serveur.lua` + `startup.lua`), identique à celle du serveur bûcheron.  
+Suppression du levier redstone physique, remplacé par une autorisation manuelle pilotée depuis l'écran (combinée à la sécurité automatique de remplissage du coffre de dépôt).  
+Ajout d'une grille de boutons tactiles : Autoriser/Stopper, Acquitter, Reconnexion, Forcer Ravitaillement, Forcer Vidange.  
+Nouveau canal de commande fiabilisé avec accusé de réception (jamais de commande perdue en cas de message manqué).  
+Le serveur affiche désormais le dernier défaut remonté par la turtle.  
+Correction d'un timeout de connexion non fonctionnel : l'état "Turtle connectée" ne redevenait jamais NON après une perte de connexion réelle.  
+Le champ `Coffre buches` (resté d'un copier-coller du serveur bûcheron) est renommé `Coffre récolte`, plus juste pour une ferme de blé.**
 
 ---
 
@@ -31,16 +48,12 @@ Gestion d'un IHM basique.*
 
 ## 🚀 Installation du serveur
 
-1. **Placez le programme** `serveurFermier.lua` sur un ordinateur ComputerCraft (PC ou serveur dédié).
+1. **Placez les programmes** `Serveur.lua`, `startup.lua` et `PixelLink.lua` sur un ordinateur ComputerCraft (PC ou serveur dédié).
 2. **Ajoutez un modem** sur l’ordinateur, du côté de votre choix (`back`, `right`, etc).
-3. **Connectez un écran monitor** sur un côté de l’ordinateur pour la supervision locale.
-4. (Optionnel) **Assurez-vous que les turtles/relais sont configurés avec le même protocole PixelLink et la même ID serveur.**
+3. **Connectez un écran monitor** sur un côté de l’ordinateur pour la supervision locale et le pilotage tactile.
+4. **Assurez-vous que les turtles/relais soient configurés avec le même protocole PixelLink et la même ID serveur.**
 
-**Démarrage rapide :**
-```lua
--- startup.lua
-shell.run("serveurFermier")
-```
+**Démarrage rapide :** Lors du démarrage du PC (Ctrl + R, démarrage serveur ou save), le serveur démarre automatiquement (`startup.lua`) et se met en attente de messages.
 
 ## 📡Configuration
 Modifier les IDs
@@ -70,10 +83,11 @@ Dernières alertes ou défauts
 Nombre de cycles de production
 
 > [!IMPORTANT]
-> Dépendant à CraftNET version à jour sur toutes les turtles et relais connectés.
+> Dépendant de PixelLink version à jour sur toutes les turtles et relais connectés.
+> Le module PixelLink est [disponible sur GitHub](https://github.com/ValDin08/ComputerCraft_Reseau/tree/main/PixelLink).
 
 > [!IMPORTANT]
-> Les Turtles connectées doivent au moins être en version **2.0**.
+> Les Turtles connectées doivent au moins être en version **3.0-alpha01** (génération **Lumen**) pour ce serveur : une turtle antérieure ne parle pas PixelLink et ne pourra pas s'y connecter.
 
 > [!IMPORTANT]
 > Un relais doit être intégré au réseau.

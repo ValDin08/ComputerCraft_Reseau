@@ -18,7 +18,7 @@ PixelLink : protocole moderne, structuré, extensible (messages typés, payloads
 ![GitHub](https://img.shields.io/badge/PixelLink-Beta_v1.0--b03-yellow)
 ![GitHub](https://img.shields.io/badge/CraftNET-Legacy_v1.0-lightblue)
 ![GitHub](https://img.shields.io/badge/Serveur_Bucheron-Alpha_v5.0--a01-orange)
-![GitHub](https://img.shields.io/badge/Serveur_Fermier-Stable_v1.0-green)
+![GitHub](https://img.shields.io/badge/Serveur_Fermier-Alpha_v3.0--a01-orange)
 ![GitHub](https://img.shields.io/badge/Relais-Alpha_v2.0--a01-orange)
 
 
