@@ -11,7 +11,18 @@ This server manages the supervision, authorization, and control of turtles and r
 
 ## Current Version: 3.0-alpha01
 ### Generation: Lumen 🔆
-*(full project generation table on the [ComputerCraft_Turtle_Bucheron](https://github.com/ValDin08/ComputerCraft_Turtle_Bucheron#-generations) repository)*
+
+### 🚀 Generations
+
+Each generation groups a major evolution shared by every turtle in the project (lumberjack, farmer, miner...), independently of each one's own version number:
+
+| Generation | Name | Defining trait |
+|---|---|---|
+| 1 | **Flint** | Basic manual version: hand-loaded/unloaded, no network, no GPS. |
+| 2 | **Vector** | Full autonomy: GPS guidance, automatic inventory management, multiple rows. |
+| 3 | **Echo** | Network arrives: communication with a server (CraftNET protocol), remote stop. |
+| 4 | **Nexus** | PixelLink protocol: consolidated communications, smart rotation detection. |
+| 5 | **Lumen** | Full touchscreen control from the server screen, no more physical lever. |
 
 ### 📝 Patchnote
 <details>

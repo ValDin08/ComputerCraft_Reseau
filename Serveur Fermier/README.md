@@ -11,7 +11,18 @@ Ce serveur gère la supervision, l’autorisation et la gestion des turtles et r
 
 ## Version actuelle : 3.0-alpha01
 ### Génération : Lumen 🔆
-*(tableau complet des générations du projet sur le dépôt [ComputerCraft_Turtle_Bucheron](https://github.com/ValDin08/ComputerCraft_Turtle_Bucheron#-générations))*
+
+### 🚀 Générations
+
+Chaque génération regroupe une évolution majeure commune à toutes les turtles du projet (bûcheron, fermier, mineur...), indépendamment du numéro de version propre à chacune :
+
+| Génération | Nom | Caractéristique |
+|---|---|---|
+| 1 | **Flint** | Version manuelle de base : rechargement/déchargement à la main, sans réseau ni GPS. |
+| 2 | **Vector** | Autonomie complète : guidage GPS, gestion automatique de l'inventaire, rangées multiples. |
+| 3 | **Echo** | Arrivée du réseau : communication avec un serveur (protocole CraftNET), arrêt à distance. |
+| 4 | **Nexus** | Protocole PixelLink : communications consolidées, détection de rotation intelligente. |
+| 5 | **Lumen** | Pilotage tactile complet depuis l'écran du serveur, fin du levier physique. |
 
 ### 📝 Patchnote
 <details>
