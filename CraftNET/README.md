@@ -1,5 +1,6 @@
 <p align="center">
-<img width="1583" height="1600" alt="wmremove-transformed" src="https://github.com/user-attachments/assets/a657e464-24ba-45ee-98cc-e95a186fb621" />
+<img width="1583" height="1600" alt="wmremove-transformed" src="https://github.com/user-attachments/assets/00a6af40-ca69-4ca5-9c40-25f1d65f3293"
+" />
 </p>
 
 # CraftNET — Protocole réseau (legacy) pour CC:Tweaked
