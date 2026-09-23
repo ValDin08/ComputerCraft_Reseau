@@ -15,7 +15,7 @@ Goal: unify communication, supervision, and control (production authorization, a
 
 ## ⚙️ Network Components Status
 
-![GitHub](https://img.shields.io/badge/PixelLink-Beta_v1.0--b03-yellow)
+![GitHub](https://img.shields.io/badge/PixelLink-Alpha_v5.0--a01-orange)
 ![GitHub](https://img.shields.io/badge/CraftNET-Legacy_v1.0-lightblue)
 ![GitHub](https://img.shields.io/badge/Timber_server-Alpha_v5.0--a01-orange)
 ![GitHub](https://img.shields.io/badge/Farmer_server-Alpha_v3.0--a01-orange)
