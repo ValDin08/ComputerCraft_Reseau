@@ -1,7 +1,7 @@
 -- VARIABLE DECLARATION
     -- Globals
-		local ServerVersion = "5.0-alpha01"
-		local TurtleVersion = "5.0-alpha01"
+		local ServerVersion = "5.0-alpha02"
+		local TurtleVersion = "5.0-alpha02"
 		local Job  			= "Server"
 		local PixelLinkRef  = nil
 
@@ -10,8 +10,8 @@
         local LocalID                   = os.getComputerID()    -- Server ID
         Server.Version                  = { server = ServerVersion, turtle = TurtleVersion } -- Single source of truth for versions, exposed to startup.lua
         local TurtleID                  = 16                    -- Turtle ID
-        local FuelRelayID               = nil                   -- Fuel relay ID (nil = not configured; 0 is a valid computer ID, so unsafe as an "unconfigured" placeholder)
-        local HarvestRelayID            = 17                    -- Wood relay ID (to be completed if used)
+        local FuelRelayID               = nil                   -- Fuel relay ID, resolved dynamically at startup (cf setRelayIDs / retryMissingRelays)
+        local HarvestRelayID            = nil                   -- Wood relay ID, resolved dynamically at startup (cf setRelayIDs / retryMissingRelays)
         local ModemSide                 = "back"                -- RedNet modem side
         local TurtleConnected           = false                 -- Turtle connected
         local TurtleAuthorized          = false                 -- Turtle authorized to harvest
@@ -105,6 +105,34 @@
         function Server.authorization()
             return (HarvestChestFillingLevel < 95) and Server.ManualAuthorization
 
+        end
+
+    -- Resolution (and periodic retry) of relays by name. A relay that starts after the server, or
+    -- gets restarted independently later, must not stay unreachable forever: without this, a single
+    -- failed attempt at boot (a startup race between two separate physical computers) would leave
+    -- the relay unreachable until the server itself was manually restarted. Only retries once every
+    -- RelayRetryInterval seconds: rednet.lookup waits for a reply, we don't want to stall the
+    -- network loop on every pass.
+        local RelayRetryInterval = 30 -- seconds
+        local LastRelayRetryAttempt = -math.huge
+
+        function Server.retryMissingRelays()
+            if FuelRelayID and HarvestRelayID then return end -- already resolved, nothing to do
+            if PixelLinkRef == nil then return end
+
+            local now = os.clock()
+            if now - LastRelayRetryAttempt < RelayRetryInterval then return end
+            LastRelayRetryAttempt = now
+
+            if not FuelRelayID then
+                FuelRelayID = PixelLinkRef.resolve("bucheron_fuel_relay")
+                if FuelRelayID then print("Fuel relay found: ID #"..FuelRelayID) end
+            end
+
+            if not HarvestRelayID then
+                HarvestRelayID = PixelLinkRef.resolve("bucheron_harvest_relay")
+                if HarvestRelayID then print("Wood relay found: ID #"..HarvestRelayID) end
+            end
         end
 
     -- Utility function to refresh lastSeen based on the received message

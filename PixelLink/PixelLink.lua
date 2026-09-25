@@ -3,6 +3,10 @@ local serverRef = nil
 
 local lastMessageID = 0
 
+-- Protocole Rednet utilisé pour l'annonce/la résolution de nom (rednet.host/rednet.lookup).
+-- Sert aussi à isoler le trafic PixelLink d'un éventuel autre trafic Rednet sur le même réseau.
+local PROTOCOL = "PixelLink"
+
 -- FONCTIONS
     -- Traçabilité messages
     local function nextMessageID()
@@ -124,6 +128,25 @@ local lastMessageID = 0
 
             end
 
+        end
+
+    -- Découverte par nom (remplace les ID de computer codés en dur)
+        -- Annonce ce nœud sous un nom sur le réseau, pour qu'un autre nœud puisse le trouver sans
+        -- connaître son ID à l'avance. À appeler une fois au démarrage, après rednet.open().
+        function PixelLink.host(hostname)
+            local ok, err = pcall(rednet.host, PROTOCOL, hostname)
+            if not ok then
+                -- Échec le plus probable : un autre nœud du réseau utilise déjà ce nom
+                print("Impossible de s'annoncer comme '"..hostname.."' : "..tostring(err))
+            end
+            return ok
+        end
+
+        -- Résout un nom en ID de computer (nil si personne ne répond). Implique un aller-retour
+        -- réseau : à appeler une fois au démarrage (avec nouvelle tentative si besoin), jamais par
+        -- message, et à mettre en cache dans une variable locale une fois résolu.
+        function PixelLink.resolve(hostname)
+            return rednet.lookup(PROTOCOL, hostname)
         end
 
 return PixelLink

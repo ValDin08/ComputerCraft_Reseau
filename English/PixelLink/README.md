@@ -20,7 +20,7 @@ With PixelLink, link your machines and simplify your world.
 
 ---
 
-## Current Version: 1.0-beta03
+## Current Version: 1.0-beta04
 
 ### 📝 Patchnote:
 <details>
@@ -32,11 +32,14 @@ With PixelLink, link your machines and simplify your world.
 
 *1.0-beta02: Bugfix patch.*
 
+*1.0-beta03: Fixed a global variable leak in `PixelLink.receive` (payload was not local).  
+`PixelLink.request` now actually waits out the full requested timeout, ignoring messages unrelated to the current request, instead of settling for the first message received from anyone.  
+Added request/reply correlation (`replyTo`): a reply is only accepted if it actually answers THIS specific request, preventing a late reply to an old request from being mistaken for the right one.*
+
 </details>
 
-**1.0-beta03: Fixed a global variable leak in `PixelLink.receive` (payload was not local).  
-`PixelLink.request` now actually waits out the full requested timeout, ignoring messages unrelated to the current request, instead of settling for the first message received from anyone.  
-Added request/reply correlation (`replyTo`): a reply is only accepted if it actually answers THIS specific request, preventing a late reply to an old request from being mistaken for the right one.**
+**1.0-beta04: Added name-based service discovery (`PixelLink.host`/`PixelLink.resolve`, built on `rednet.host`/`rednet.lookup`): a turtle/relay/server can now announce itself under a name and be found by that name, without knowing its counterpart's ID in advance.  
+Isolated PixelLink traffic from other Rednet usage on the same network via a dedicated Rednet protocol.**
 
 ---
 
@@ -57,6 +60,9 @@ Added request/reply correlation (`replyTo`): a reply is only accepted if it actu
     PixelLink.serverID = 12   -- Main server ID
     ```
 3. Start the main loop adapted to your role (see examples).
+
+> [!TIP]
+> As of v1.0-beta04, instead of hardcoding your counterpart's ID (`PixelLink.serverID`), you can announce each node under a name (`PixelLink.host("bucheron_server")`) and find it elsewhere on the network by that name (`PixelLink.resolve("bucheron_server")`).
 
 ---
 

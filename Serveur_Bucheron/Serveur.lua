@@ -1,7 +1,7 @@
 -- DECLARATION DES VARIABLES
     -- Globales
-		local ServerVersion = "5.0-alpha01"
-		local TurtleVersion = "5.0-alpha01"
+		local ServerVersion = "5.0-alpha02"
+		local TurtleVersion = "5.0-alpha02"
 		local METIER  		= "Serveur"
 		local PixelLinkRef  = nil
 
@@ -10,8 +10,8 @@
         local LocalID                   = os.getComputerID()    -- ID du serveur
         Serveur.Version                 = { server = ServerVersion, turtle = TurtleVersion } -- Source unique des versions, exposée à Startup.lua
         local TurtleID                  = 16                    -- ID de la turtle
-        local FuelRelayID               = nil                   -- ID du relais carburant (nil = non configuré ; 0 est un ID de computer valide, donc impropre comme "non configuré")
-        local HarvestRelayID            = 17                    -- ID du relais bois (à compléter si utilisé)
+        local FuelRelayID               = nil                   -- ID du relais carburant, résolu dynamiquement au démarrage (cf startup.lua, Serveur.setRelayIDs)
+        local HarvestRelayID            = nil                   -- ID du relais bois, résolu dynamiquement au démarrage (cf startup.lua, Serveur.setRelayIDs)
         local ModemSide                 = "back"                -- Côté du modem RedNet
         local TurtleConnected           = false                 -- Turtle connectée
         local TurtleAuthorized          = false                 -- Turtle autorisée à récolter
@@ -106,6 +106,34 @@
         function Serveur.authorization()
             return (HarvestChestFillingLevel < 95) and Serveur.ManualAuthorization
 
+        end
+
+    -- Résolution (et nouvelle tentative périodique) des relais par nom. Un relais qui démarre après
+    -- le serveur, ou qu'on redémarre indépendamment plus tard, ne doit pas rester injoignable pour
+    -- toujours : sans ça, une seule tentative ratée au boot (course au démarrage entre deux
+    -- ordinateurs physiques distincts) bloquait le relais définitivement jusqu'au redémarrage manuel
+    -- du serveur. Ne retente qu'au bout de RelayRetryInterval secondes : rednet.lookup attend une
+    -- réponse, on ne veut pas bloquer la boucle réseau à chaque passage.
+        local RelayRetryInterval = 30 -- secondes
+        local LastRelayRetryAttempt = -math.huge
+
+        function Serveur.retryMissingRelays()
+            if FuelRelayID and HarvestRelayID then return end -- déjà tout résolu, rien à faire
+            if PixelLinkRef == nil then return end
+
+            local now = os.clock()
+            if now - LastRelayRetryAttempt < RelayRetryInterval then return end
+            LastRelayRetryAttempt = now
+
+            if not FuelRelayID then
+                FuelRelayID = PixelLinkRef.resolve("bucheron_fuel_relay")
+                if FuelRelayID then print("Relais carburant retrouvé : ID #"..FuelRelayID) end
+            end
+
+            if not HarvestRelayID then
+                HarvestRelayID = PixelLinkRef.resolve("bucheron_harvest_relay")
+                if HarvestRelayID then print("Relais bois retrouvé : ID #"..HarvestRelayID) end
+            end
         end
 
     -- Fonction utilitaire pour actualiser lastSeen selon le msg reçu

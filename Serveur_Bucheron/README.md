@@ -9,7 +9,7 @@
 Bienvenue dans le serveur **Bucheron** pour ComputerCraft !  
 Ce serveur gère la supervision, l’autorisation et la gestion des turtles et relais associés à la production de bois.
 
-## Version actuelle : 5.0-alpha01
+## Version actuelle : 5.0-alpha02
 ### Génération : Lumen 🔆
 
 ### 📝 Patchnote
@@ -35,9 +35,7 @@ Modification du programme en conséquence.*
 
 *v4.0-beta01 : Passage en Beta.*
 
-</details>
-
-**5.0-alpha01 : Suppression du levier redstone physique, remplacé par une autorisation manuelle pilotée depuis l'écran (combinée à la sécurité automatique de remplissage du coffre).  
+*5.0-alpha01 : Suppression du levier redstone physique, remplacé par une autorisation manuelle pilotée depuis l'écran (combinée à la sécurité automatique de remplissage du coffre).  
 Ajout d'une grille de boutons tactiles : Autoriser/Stopper, Acquitter, Reconnexion, Forcer Ravitaillement, Forcer Vidange.  
 Nouveau canal de commande fiabilisé : les actions opérateur transitent par la réponse d'autorisation existante avec accusé de réception, pour ne jamais perdre une commande en cas de message perdu.  
 Le serveur affiche désormais le dernier défaut remonté par la turtle (le champ existait dans la trame mais n'était jamais affiché).  
@@ -45,7 +43,13 @@ Correction d'un bug où la grille de boutons se dessinait à la mauvaise échell
 Correction d'un bug où l'état "Turtle connectée" ne redevenait jamais NON après une perte de connexion réelle (état de timeout dupliqué entre `startup.lua` et `Serveur.lua`, jamais synchronisé) : la logique de timeout est désormais centralisée dans `Serveur.checkTimeouts()`.  
 Correction de la fonction `Serveur.ConnectToServer` (cassée, jamais appelée) → `Serveur.connectToMasterServer`, effectivement câblée.  
 Unification des numéros de version turtle/serveur via une source unique (`Serveur.Version`).  
-`FuelRelayID` passé de `0` à `nil` par défaut (0 est un ID de computer valide, dangereux comme "non configuré") — à adapter à l'ID réel de votre relais.**
+`FuelRelayID` passé de `0` à `nil` par défaut (0 est un ID de computer valide, dangereux comme "non configuré") — à adapter à l'ID réel de votre relais.*
+
+</details>
+
+**5.0-alpha02 : Le serveur s'annonce désormais sous un nom de service (`ServerHostname`, `bucheron_server` par défaut) via `PixelLink.host()`, retrouvable par les turtles et relais sans connaître son ID à l'avance.  
+`FuelRelayID` et `HarvestRelayID` ne sont plus codés en dur : ils sont résolus dynamiquement par nom (`bucheron_fuel_relay` / `bucheron_harvest_relay`) via `Serveur.retryMissingRelays()`.  
+Correction d'une condition de course au démarrage où un seul des deux relais était retrouvé (résolution unique au boot, en concurrence avec le démarrage indépendant de chaque relais) : la résolution des relais manquants est désormais retentée périodiquement (toutes les 30s) en continu depuis la boucle réseau, au lieu d'un essai unique au boot.**
 
 ---
 
@@ -69,18 +73,15 @@ Unification des numéros de version turtle/serveur via une source unique (`Serve
 **Démarrage rapide :** Lors du démarrage du PC (Ctrl + R, démarrage serveur ou save), le serveur démarre automatiquement et se met en attente de messages.
 
 ## 📡Configuration
-Modifier les IDs
-Dans le script, configurez :
+Dans `Startup.lua`, configurez :
 
-ServerID : l’ID de votre serveur (par défaut : celui du computer)
-
-TurtleIDs : liste des IDs turtles acceptées
-
-RelayIDs : liste des relais associés
+ServerHostname : nom de service sous lequel le serveur s'annonce sur PixelLink (doit correspondre au `SERVER_HOSTNAME` passé aux turtles et relais)
 
 ModemSide : côté du modem (back, right, etc)
 
 ScreenSide : côté de l’écran (left, bottom, etc)
+
+Les relais (`FuelRelayID`, `HarvestRelayID`) n'ont plus besoin d'être configurés manuellement : ils sont retrouvés automatiquement par nom (voir `Serveur.lua`).
 
 ## 🖥️ Supervision IHM
 Le serveur affiche en temps réel sur l’écran :

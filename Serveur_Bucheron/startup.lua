@@ -6,6 +6,7 @@
 
     -- IDs et réseau
         local ModemSide                 = "back"                -- Côté du modem RedNet
+        local ServerHostname            = "bucheron_server"     -- Nom sous lequel ce serveur s'annonce sur le réseau PixelLink
         local MasterServerIsPresent     = false                 -- Serveur principal présent sur l'installation
         local MasterServerID            = 0                     -- ID du serveur principal, si présent sur l'installation
 
@@ -44,6 +45,10 @@
 		rednet.open(ModemSide)
 		os.sleep(2)
 
+		print("Annonce du serveur sous le nom '"..ServerHostname.."'...")
+		PixelLink.host(ServerHostname)
+		os.sleep(2)
+
 		print("Démarrage écran...")
 		HMI.setCursorPos(1,1)
 		HMI.write("Démarrage écran en cours...")
@@ -73,6 +78,10 @@
 
                 -- Vérifie les timeouts de chaque entité (état géré et affiché par le module Serveur)
                 Serveur.checkTimeouts()
+
+                -- Retente la résolution des relais pas encore trouvés (cf Serveur.retryMissingRelays :
+                -- gère elle-même le délai entre deux tentatives, pas besoin de throttle ici)
+                Serveur.retryMissingRelays()
 
                 Serveur.displayHMI()
 

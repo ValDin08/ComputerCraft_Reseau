@@ -23,7 +23,7 @@ Ils pourront ultérieurement servir de borne de retransmission entre un relais/u
 
 ---
 
-## Version actuelle : 2.0
+## Version actuelle : 2.1
 
 ### 📝 Patchnote :
 <details>
@@ -32,22 +32,28 @@ Ils pourront ultérieurement servir de borne de retransmission entre un relais/u
 
 *1.0 : Version de base de des relais.*
 
+*2.0 : Intégration de PixelLink aux relais.*
+
 </details>
 
-**2.0 : Intégration de PixelLink aux relais.**
+**2.1 : Correction de plusieurs bugs bloquants du programme (constructeur de la table `inventory` avec des virgules manquantes, variable `Chest.SlotQty` mal préfixée, coquille `Chest.ChestsItemQty`→`Chest.ChestItemQty`, `Chest.ChestSide` jamais renseigné depuis la config).  
+Le relais reste désormais identique sur toutes les instances : le nom de service à annoncer, le nom affiché et le côté du coffre se configurent uniquement via les arguments passés en `shell.run`/`startup.lua` (`RelayHostname`, `RelayName`, `ChestSide`).  
+Ajout de la découverte du serveur par nom (`PixelLink.resolve`) avec nouvelle tentative périodique, et annonce du relais sous son propre nom (`PixelLink.host`) pour être retrouvé par le serveur.  
+Correction du calcul du taux de remplissage du coffre, qui supposait un plafond de 64 uniforme par slot : il utilise désormais la capacité réelle de chaque objet (`item.maxCount`) pour chaque slot occupé.**
 
 ---
 
 ## Utilisation
-1. **Installation** : Place le fichier `Relais.lua` dans le dossier du PC relais.
-2. **Configuration** : Modifie les paramètres de slot/côté selon ta configuration de coffres.
-3. **Lancement** : Démarre le programme avec la commande :
+1. **Installation** : Place les fichiers `Relais.lua` et `PixelLink.lua` dans le dossier du PC relais.
+2. **Configuration** : `Relais.lua` reste strictement identique sur tous les relais. Toute la configuration propre à une instance (nom d'annonce, nom affiché, côté du coffre surveillé) se fait via les arguments passés au lancement.
+3. **Lancement** : Démarre le programme avec la commande (dans `startup.lua`, à adapter par relais) :
 ```
-*local METIER = "Relais"
-shell.run(METIER)*
+local METIER = "Relais"
+local RELAY_HOSTNAME = "bucheron_fuel_relay"  -- nom sous lequel ce relais s'annonce
+local RELAY_NAME = "Carburant"                -- nom affiché dans les logs/console
+local CHEST_SIDE = "front"                    -- côté du coffre surveillé
+shell.run(METIER, RELAY_HOSTNAME, RELAY_NAME, CHEST_SIDE)
 ```
-> [!TIP]
-> **Autre solution** : copiez le code contenu dans *Relais.lua* dans votre *startup.lua*.
 
 4. Les relais s’identifient auprès du serveur et transmettent leur état en continu.
 
@@ -55,39 +61,21 @@ shell.run(METIER)*
 
 ## Prérequis
 - CC:Tweaked (Minecraft mod)
-- PixelLink (module réseau, version ≥ 1.0.2)
+- PixelLink (module réseau, version ≥ 1.0-beta04, pour la découverte de service par nom)
 - Un modem (sans fil ou câblé) connecté au PC relais
-- Un serveur local sur lequel est installé une version **v4.0** ou supérieure
+- Un serveur local sur lequel est installé une version **v5.0-alpha02** ou supérieure (pour la résolution automatique des relais par nom)
 
 ---
 
 ## Astuces
 ### Coffres multiples
-Pour gérer plusieurs coffres, créez une autre variable *RelayName*, par exemple *RelayNameBis* et une autre table de coffre, par exemple *Chest2*.  
-Lorsque vous envoyez votre premier ensemble de message, envoyez les messages sous *RelayName*, puis à l'envoi suivant, envoyez les messages sous *RelayNameBis* :
+Chaque coffre à surveiller correspond à une instance de relais distincte (un PC par coffre), lancée avec son propre nom d'annonce et son propre côté de coffre. Le programme `Relais.lua` étant identique partout, il suffit d'adapter les arguments passés en `shell.run`/`startup.lua` (voir [Utilisation](#utilisation)) :
 
 ```
--- Globales
-  local RelayVersion	=	"1.0"	    -- Version actuelle du programme
-  local RelayName     =	"Carburant"	-- Nom du relais principal
-  local RelayNameBis  =	"Bois"	-- Nom du relais alternatif
-[...]
--- Envoi de la demande de connexion au serveur par le relais principal
-  ConnectToServer(RelayName)  
+-- Relais carburant
+shell.run("Relais", "bucheron_fuel_relay", "Carburant", "front")
 
--- Actualisation du comptage du coffre 1
-  ChestFillingPercentage(Chest1)
-
--- Envoi du statut du coffre 1
-  StatusToServer(Chest1)
-
--- Envoi de la demande de connexion au serveur par le relais alternatif
-  ConnectToServer(RelayNameBis)  
-
--- Actualisation du comptage du coffre 2
-  ChestFillingPercentage(Chest2)
-
--- Envoi du statut du coffre 2
-  StatusToServer(Chest2)
+-- Relais bois (sur un autre PC)
+shell.run("Relais", "bucheron_harvest_relay", "Bois", "front")
 ```
-Il suffira d'adapter la fonction ConnectToServer pour qu'elle envoie le nom du relais en payload, et côté serveur, que la réception lise le nom du relais et plus son id.
+Côté serveur, `Serveur.retryMissingRelays()` résout chaque nom en ID indépendamment, aucune adaptation supplémentaire n'est nécessaire.

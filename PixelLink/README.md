@@ -20,7 +20,7 @@ Avec PixelLink, reliez vos machines, simplifiez votre univers.
 
 ---
 
-## Version actuelle : 1.0-beta03
+## Version actuelle : 1.0-beta04
 
 ### 📝 Patchnote :
 <details>
@@ -33,11 +33,14 @@ Avec PixelLink, reliez vos machines, simplifiez votre univers.
 
 *1.0-beta02 : Patch correctif.*
 
+*1.0-beta03 : Correction d'une fuite de variable globale dans `PixelLink.receive` (payload non local).  
+`PixelLink.request` attend désormais réellement le délai complet demandé, en ignorant les messages sans rapport avec la requête en cours, au lieu de se satisfaire du premier message reçu de n'importe qui.  
+Ajout d'une corrélation requête/réponse (`replyTo`) : une réponse n'est acceptée que si elle répond bien à CETTE requête précise, évitant qu'une réponse tardive à une ancienne requête soit prise pour la bonne.*
+
 </details>
 
-**1.0-beta03 : Correction d'une fuite de variable globale dans `PixelLink.receive` (payload non local).  
-`PixelLink.request` attend désormais réellement le délai complet demandé, en ignorant les messages sans rapport avec la requête en cours, au lieu de se satisfaire du premier message reçu de n'importe qui.  
-Ajout d'une corrélation requête/réponse (`replyTo`) : une réponse n'est acceptée que si elle répond bien à CETTE requête précise, évitant qu'une réponse tardive à une ancienne requête soit prise pour la bonne.**
+**1.0-beta04 : Ajout de la découverte de service par nom (`PixelLink.host`/`PixelLink.resolve`, basé sur `rednet.host`/`rednet.lookup`) : un turtle/relais/serveur peut désormais s'annoncer sous un nom et être retrouvé par ce nom, sans connaître l'ID de son correspondant à l'avance.  
+Isolation du trafic PixelLink des autres usages de Rednet sur le même réseau via un protocole Rednet dédié.**
 
 ---
 
@@ -61,6 +64,9 @@ PixelLink.role = "turtle" -- "relay", "server", ou "supervisor"
 PixelLink.serverID = 12   -- ID serveur principal
 ```
 3. Lancez la boucle principale adaptée à votre rôle (voir exemples).
+
+> [!TIP]
+> Depuis la v1.0-beta04, plutôt que de coder en dur l'ID du correspondant (`PixelLink.serverID`), vous pouvez annoncer chaque nœud sous un nom (`PixelLink.host("bucheron_server")`) et le retrouver ailleurs sur le réseau par ce nom (`PixelLink.resolve("bucheron_server")`).
 
 ---
 

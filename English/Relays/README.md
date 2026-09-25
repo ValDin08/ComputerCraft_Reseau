@@ -26,7 +26,7 @@ In the future, they may also act as repeater nodes between a relay/turtle and a 
 
 ---
 
-## Current version : 2.0
+## Current version : 2.1
 
 ### 📝 Patchnote :
 <details>
@@ -35,22 +35,28 @@ In the future, they may also act as repeater nodes between a relay/turtle and a 
 
 *1.0 : Basic version of relays program.*
 
+*2.0 : PixelLink integration to relays.*
+
 </details>
 
-**2.0 : PixelLink integration to relays.**
+**2.1 : Fixed several blocking bugs in the program (`inventory` table constructor with missing commas, mis-prefixed `Chest.SlotQty` variable, `Chest.ChestsItemQty`→`Chest.ChestItemQty` typo, `Chest.ChestSide` never actually set from config).  
+The relay program now stays identical across every instance: the announced service name, display name, and chest side are configured only through the arguments passed in `shell.run`/`startup.lua` (`RelayHostname`, `RelayName`, `ChestSide`).  
+Added server discovery by name (`PixelLink.resolve`) with periodic retries, and the relay now announces itself under its own name (`PixelLink.host`) so the server can find it.  
+Fixed the chest fill-rate calculation, which assumed a uniform 64-item cap per slot: it now uses each item's real capacity (`item.maxCount`) for every occupied slot.**
 
 ---
 ## Usage
 
-1. **Installation**: Place the `Relay.lua` file in the relay PC's folder.
-2. **Configuration**: Edit the slot/side parameters according to your chest setup.
-3. **Startup**: Start the program with the command:
+1. **Installation**: Place the `Relay.lua` and `PixelLink.lua` files in the relay PC's folder.
+2. **Configuration**: `Relay.lua` stays strictly identical across every relay. All instance-specific configuration (announcement name, display name, monitored chest side) is passed as startup arguments.
+3. **Startup**: Start the program with the command (in `startup.lua`, adapted per relay):
 ```
-*local JOB = "Relay"
-shell.run(JOB)*
+local JOB = "Relay"
+local RELAY_HOSTNAME = "bucheron_fuel_relay"  -- name this relay announces itself under
+local RELAY_NAME = "Fuel"                     -- display name in logs/console
+local CHEST_SIDE = "front"                    -- side of the monitored chest
+shell.run(JOB, RELAY_HOSTNAME, RELAY_NAME, CHEST_SIDE)
 ```
-> [!TIP]
-> **Alternative**: Copy the code from *Relay.lua* into your *startup.lua* file.
 
 4. Relays will identify themselves to the server and continuously send their status.
 
@@ -59,41 +65,21 @@ shell.run(JOB)*
 ## Requirements
 
 - CC:Tweaked (Minecraft mod)
-- PixelLink (network module, version ≥ 1.0.2)
+- PixelLink (network module, version ≥ 1.0-beta04, for name-based service discovery)
 - A modem (wired or wireless) connected to the relay PC
-- A local server running version **v4.0** or higher
+- A local server running version **v5.0-alpha02** or higher (for automatic relay resolution by name)
 
 ## Tips
 
 ### Multiple Chests
 
-To handle multiple chests, create another *RelayName* variable (e.g., *RelayNameBis*) and another chest table (e.g., *Chest2*).  
-When sending your first set of messages, use *RelayName*, then on the next send, use *RelayNameBis*:
-
-
+Each chest to monitor gets its own relay instance (one PC per chest), started with its own announcement name and chest side. Since `Relay.lua` is identical everywhere, just adapt the arguments passed to `shell.run`/`startup.lua` (see [Usage](#usage)):
 
 ```
--- Globales
-  local RelayVersion	=	"1.0"	    -- Current program version
-  local RelayName     =	"Fuel"	-- Name of the main relay
-  local RelayNameBis  =	"Logs"	-- Alternative name of the relay
-[...]
--- Sending server connection request from the main relay
-  ConnectToServer(RelayName)  
+-- Fuel relay
+shell.run("Relay", "bucheron_fuel_relay", "Fuel", "front")
 
--- Refreshing counting on chest 1
-  ChestFillingPercentage(Chest1)
-
--- Sending chest 1 status
-  StatusToServer(Chest1)
-
--- Sending server connection request from the alternative relay
-  ConnectToServer(RelayNameBis)  
-
--- Refreshing counting on chest 2
-  ChestFillingPercentage(Chest2)
-
--- Sending chest 2 status
-  StatusToServer(Chest2)
+-- Logs relay (on a different PC)
+shell.run("Relay", "bucheron_harvest_relay", "Logs", "front")
 ```
-Just adapt the ConnectToServer function so that it sends the relay name in the payload, and on the server side, make sure reception checks the relay name rather than just its id.
+On the server side, `Server.retryMissingRelays()` resolves each name to an ID independently — no further adaptation is needed.

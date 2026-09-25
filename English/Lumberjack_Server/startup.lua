@@ -6,6 +6,7 @@
 
     -- IDs and network
         local ModemSide                 = "back"                -- RedNet modem side
+        local ServerHostname            = "bucheron_server"     -- Name this server announces itself under on the PixelLink network
         local MasterServerIsPresent     = false                 -- Main server present in the installation
         local MasterServerID            = 0                     -- Main server ID, if present
 
@@ -44,6 +45,10 @@
 		rednet.open(ModemSide)
 		os.sleep(2)
 
+		print("Announcing the server under the name '"..ServerHostname.."'...")
+		PixelLink.host(ServerHostname)
+		os.sleep(2)
+
 		print("Starting the screen...")
 		HMI.setCursorPos(1,1)
 		HMI.write("Starting the screen...")
@@ -73,6 +78,10 @@
 
                 -- Check the timeouts for each entity (state managed and displayed by the Server module)
                 Server.checkTimeouts()
+
+                -- Retry resolving any relay not yet found (cf Server.retryMissingRelays: it manages
+                -- its own delay between attempts, no throttling needed here)
+                Server.retryMissingRelays()
 
                 Server.displayHMI()
 
